@@ -31,7 +31,7 @@ const update = (deltaTime: number) => {
 
 const playerFactory = () => {
   const id = gameStore.nextId();
-  gameStore.dataStore.sprites.set(id, { textureName: "blackBox" } );
+  gameStore.dataStore.sprites.set(id, { textureName: "blaBox" } );
   gameStore.dataStore.transforms.set(id, { position: { x: 250, y: 250 }, rotation: 0 });
 }
 
@@ -79,13 +79,35 @@ onMounted(async () => {
 <template>
   <div>
     <ClientOnly>
-      <canvas ref="gameCanvas" :width="500" :height="500" />
-      <div style="padding: 4px; width: 100%; max-height: 200px; height: 200px; overflow-y: scroll; font-family: 'Courier New', Courier, monospace; background-color: black;">
-        <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message">
-          <div v-if="log.logType == LogType.Error" style="color: red">ERROR: {{ log.message }}</div>
-          <div v-else-if="log.logType == LogType.Warn" style="color: yellow">WARNING: {{ log.message }}</div>
-          <div v-else-if="log.logType == LogType.Debug" style="color: green">DEBUG: {{ log.message }}</div>
-          <div v-else style="color: white">INFO: {{ log.message }}</div>
+      <div class="grid grid-rows-[auto_1fr] overflow-hidden p-8 h-full w-full">
+        <canvas ref="gameCanvas" :width="500" :height="500" />
+        <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white dark:bg-gray-900 border rounded-md">
+          <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message" class="p-4">
+            <div
+              v-if="log.logType == LogType.Error"
+            >
+              <p class="text-red-500">
+                ERROR: {{ log.message }}
+              </p>
+            </div>
+            <div 
+              v-else-if="log.logType == LogType.Warn"
+            >
+              <p class="text-yellow-500">
+                WARNING: {{ log.message }}
+              </p>
+            </div>
+            <div 
+              v-else-if="log.logType == LogType.Debug" 
+            >
+              <p class="text-green-500">DEBUG: {{ log.message }}</p>
+            </div>
+            <div 
+              v-else
+            >
+              <p class="text-gray-900">INFO: {{ log.message }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </ClientOnly>
