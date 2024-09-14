@@ -1,5 +1,4 @@
 import type { System } from "~/types";
-import { Vec2 } from "~/utils/mathUtils";
 
 export const collisionSystem: System = {
   update(deltatime: number){

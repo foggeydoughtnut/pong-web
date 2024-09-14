@@ -1,8 +1,4 @@
-import type { BoxCollider } from "./Collider"
-import type { KeyboardControlled } from "./keyboardControlled"
-import type { Rigidbody } from "./rigidbody"
-import type { Sprite } from "./Sprite"
-import type { Transform } from "./Transform"
+import type { BoxCollider, KeyboardControlled, Rigidbody, Sprite, Transform } from "~/game/components"
 
 export type DataStore = {
   currentId: number,

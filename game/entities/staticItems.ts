@@ -7,6 +7,7 @@ export const createStaticBox = (): number => {
   });
   gameStore.dataStore.transforms.set(id, { 
     position: vec2(250, 250),
+    prevPosition: null,
     rotation: 0
   });
   gameStore.dataStore.boxColliders.set(id, {

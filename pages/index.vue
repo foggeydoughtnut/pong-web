@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { createPlayerOne } from '~/game/entities';
-import { createStaticBox } from '~/game/entities/staticItems';
-import { renderSystem, physicSystem } from '~/game/systems';
-import { collisionSystem } from '~/game/systems/collisionSystem';
-import { inputSystem } from '~/game/systems/inputSystem';
+import { createPlayerOne, createStaticBox } from '~/game/entities';
+import { renderSystem, physicSystem, collisionSystem, inputSystem } from '~/game/systems';
 import { LogType } from "~/types"
 
 let lastFrameTimeMs = 0;

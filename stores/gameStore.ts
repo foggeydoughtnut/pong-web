@@ -1,4 +1,4 @@
-import type { CollisionEvent, DataStore } from "~/types"
+import type { DataStore, CollisionEvent } from "~/types"
 import { defineStore } from 'pinia'
 import { ImageMap } from "~/utils";
 

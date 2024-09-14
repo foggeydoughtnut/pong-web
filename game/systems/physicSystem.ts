@@ -11,10 +11,12 @@ export const physicSystem: System = {
       if (currentPosition) {
         gameStore.dataStore.transforms.set(key, {...currentPosition, prevPosition: currentPosition.position, position: Vec2.add(currentPosition.position, posDelta)});
       } else {
-        logger.error(`Missing a transform for entity ${key}`)
+        logger.error(`Missing a transform for entity ${key}`);
         continue;
       }
     }
   },
-  draw(){}
+  draw(){
+
+  }
 }
