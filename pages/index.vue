@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { renderSystem } from '~/game/systems';
-import type { Position } from '~/types';
 import { LogType } from "~/types"
 
 let lastFrameTimeMs = 0;
@@ -11,27 +10,9 @@ const logStore = useLogStore();
 
 const gameCanvas = ref<HTMLCanvasElement | undefined>()
 
-const testPos: Position = {
-  x: 50,
-  y: 50
-}
-
-const update = (deltaTime: number) => {
-  if (!gameStore.canvasContext) {
-    if (gameCanvas.value) {
-      const ctx = gameCanvas.value.getContext('2d');
-      if (ctx) {
-        gameStore.canvasContext = ctx;
-      }
-    }
-  }
-
-  testPos.x += 10 * deltaTime;
-}
-
 const playerFactory = () => {
   const id = gameStore.nextId();
-  gameStore.dataStore.sprites.set(id, { textureName: "blaBox" } );
+  gameStore.dataStore.sprites.set(id, { textureName: "blackBox" } );
   gameStore.dataStore.transforms.set(id, { position: { x: 250, y: 250 }, rotation: 0 });
 }
 
@@ -49,9 +30,20 @@ const initialize = async () => {
   playerFactory();
 
 
-
   requestAnimationFrame(mainLoop);
 }
+
+const update = (deltaTime: number) => {
+  if (!gameStore.canvasContext) {
+    if (gameCanvas.value) {
+      const ctx = gameCanvas.value.getContext('2d');
+      if (ctx) {
+        gameStore.canvasContext = ctx;
+      }
+    }
+  }
+}
+
 
 const render = () => {
   if (gameCanvas.value && gameStore.canvasContext) {
