@@ -35,7 +35,17 @@ const playerFactory = () => {
   gameStore.dataStore.transforms.set(id, { position: { x: 250, y: 250 }, rotation: 0 });
 }
 
-const initialize = () => {
+// TODO await loading image
+const loadImage = (imageFileName: string, imageKey: string) => {
+  const image = new Image();
+  image.src = imageFileName;
+  const imageName = imageKey
+  image.onload = () => {
+    gameStore.loadedImages.set(imageName, image);
+  }
+}
+
+const initialize = async () => {
   // Make canvas context available globally
   if (gameCanvas.value) {
     const ctx = gameCanvas.value.getContext('2d');
@@ -44,13 +54,8 @@ const initialize = () => {
     }
   }
 
-  const image = new Image();
-  image.src = 'blackBox.png'
-  const imageName = "blackBox"
-  image.onload = () => {
-    gameStore.loadedImages.set(imageName, image);
-  }
-
+  loadImage('noTexture.png', 'noTexture');
+  loadImage('blackBox.png', 'blackBox');
 
   playerFactory()
 
@@ -75,8 +80,8 @@ const mainLoop = (timestamp: number) => {
   requestAnimationFrame(mainLoop);
 }
 
-onMounted(() => {
-  initialize();
+onMounted(async () => {
+  await initialize();
 })
 
 </script>
