@@ -13,7 +13,8 @@ export const useGameStore = defineStore('game', {
     dataStore: {
       currentId: 0,
       sprites: new Map(),
-      transforms: new Map()
+      transforms: new Map(),
+      rigidbodies: new Map(),
     },
     canvasContext: null,
     loadedImages: new ImageMap(),

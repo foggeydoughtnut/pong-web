@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { renderSystem } from '~/game/systems';
+import { createPlayer } from '~/game/entities/player';
+import { renderSystem, physicSystem } from '~/game/systems';
 import { LogType } from "~/types"
 
 let lastFrameTimeMs = 0;
@@ -9,12 +10,6 @@ const logStore = useLogStore();
 
 
 const gameCanvas = ref<HTMLCanvasElement | undefined>()
-
-const playerFactory = () => {
-  const id = gameStore.nextId();
-  gameStore.dataStore.sprites.set(id, { textureName: "blackBox" } );
-  gameStore.dataStore.transforms.set(id, { position: { x: 250, y: 250 }, rotation: 0 });
-}
 
 
 const initialize = async () => {
@@ -27,7 +22,7 @@ const initialize = async () => {
   }
 
   await loadImage('blackBox.png', 'blackBox');
-  playerFactory();
+  createPlayer();
 
 
   requestAnimationFrame(mainLoop);
@@ -42,6 +37,7 @@ const update = (deltaTime: number) => {
       }
     }
   }
+  physicSystem.update(deltaTime);
 }
 
 
