@@ -31,7 +31,7 @@ const update = (deltaTime: number) => {
 
 const playerFactory = () => {
   const id = gameStore.nextId();
-  gameStore.dataStore.sprites.set(id, { textureName: "testing"} );
+  gameStore.dataStore.sprites.set(id, { textureName: "blackBox"} );
   gameStore.dataStore.transforms.set(id, { position: { x: 250, y: 250 }, rotation: 0 });
 }
 
@@ -43,6 +43,14 @@ const initialize = () => {
       gameStore.canvasContext = ctx;
     }
   }
+
+  const image = new Image();
+  image.src = 'blackBox.png'
+  const imageName = "blackBox"
+  image.onload = () => {
+    gameStore.loadedImages.set(imageName, image);
+  }
+
 
   playerFactory()
 

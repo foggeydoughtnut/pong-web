@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 type GameStoreState = {
   dataStore: DataStore;
   canvasContext: CanvasRenderingContext2D | null;
+  loadedImages: Map<string, HTMLImageElement>
 }
 
 export const useGameStore = defineStore('game', {
@@ -13,7 +14,8 @@ export const useGameStore = defineStore('game', {
       sprites: new Map(),
       transforms: new Map()
     },
-    canvasContext: null
+    canvasContext: null,
+    loadedImages: new Map(),
   }),
   getters: {},
   actions: {
