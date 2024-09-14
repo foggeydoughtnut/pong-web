@@ -1,6 +1,6 @@
 import { vec2 } from "~/utils/mathUtils";
 
-export function createPlayer(): number{
+export function createPlayerOne(): number{
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   gameStore.dataStore.sprites.set(id, { textureName: "blackBox" } );

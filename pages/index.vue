@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createPlayer } from '~/game/entities/player';
+import { createPlayerOne } from '~/game/entities/playerOne';
 import { renderSystem, physicSystem } from '~/game/systems';
 import { inputSystem } from '~/game/systems/inputSystem';
 import { LogType } from "~/types"
@@ -32,7 +32,7 @@ const initialize = async () => {
   window.onkeyup = keyup;
 
   await loadImage('blackBox.png', 'blackBox');
-  createPlayer();
+  createPlayerOne();
 
 
   requestAnimationFrame(mainLoop);
