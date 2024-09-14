@@ -1,3 +1,3 @@
-export type sprite = {
-  key: string;
-}
+export type Sprite = {
+  textureName: string;
+};
