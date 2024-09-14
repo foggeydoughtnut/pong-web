@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { createPlayer } from '~/game/entities/player';
 import { renderSystem, physicSystem } from '~/game/systems';
+import { inputSystem } from '~/game/systems/inputSystem';
 import { LogType } from "~/types"
 
 let lastFrameTimeMs = 0;
@@ -11,6 +12,12 @@ const logStore = useLogStore();
 
 const gameCanvas = ref<HTMLCanvasElement | undefined>()
 
+function keydown(ev: KeyboardEvent){
+  gameStore.pressedKeys.add(ev.key);
+}
+function keyup(ev: KeyboardEvent){
+  gameStore.pressedKeys.delete(ev.key);
+}
 
 const initialize = async () => {
   // Make canvas context available globally
@@ -20,6 +27,9 @@ const initialize = async () => {
       gameStore.canvasContext = ctx;
     }
   }
+
+  window.onkeydown = keydown;
+  window.onkeyup = keyup;
 
   await loadImage('blackBox.png', 'blackBox');
   createPlayer();
@@ -37,6 +47,7 @@ const update = (deltaTime: number) => {
       }
     }
   }
+  inputSystem.update(deltaTime);
   physicSystem.update(deltaTime);
 }
 
@@ -68,7 +79,9 @@ onMounted(async () => {
   <div>
     <ClientOnly>
       <div class="grid grid-rows-[auto_1fr] overflow-hidden p-8 h-full w-full">
-        <canvas ref="gameCanvas" :width="500" :height="500" />
+        <div class="">
+          <canvas class="border" ref="gameCanvas" :width="500" :height="500" />
+        </div>
         <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white dark:bg-gray-900 border rounded-md">
           <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message" class="p-4">
             <div

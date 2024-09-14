@@ -5,7 +5,8 @@ import { ImageMap } from "~/utils";
 type GameStoreState = {
   dataStore: DataStore;
   canvasContext: CanvasRenderingContext2D | null;
-  loadedImages: ImageMap
+  loadedImages: ImageMap,
+  pressedKeys: Set<KeyboardEvent['key']>,
 }
 
 export const useGameStore = defineStore('game', {
@@ -15,9 +16,11 @@ export const useGameStore = defineStore('game', {
       sprites: new Map(),
       transforms: new Map(),
       rigidbodies: new Map(),
+      keyboardControlled: new Map(),
     },
     canvasContext: null,
     loadedImages: new ImageMap(),
+    pressedKeys: new Set(),
   }),
   getters: {},
   actions: {

@@ -21,6 +21,8 @@ export const Vec2 = {
     return (vec1.x * vec2.x + vec1.y * vec2.y);
   },
   norm(vec: Vector2){
-    return this.multiply(vec, 1/this.dot(vec, vec));
+
+    const dotProduct = this.dot(vec, vec);
+    return this.multiply(vec, 1/(this.dot(vec, vec) || 1));
   },
 }
