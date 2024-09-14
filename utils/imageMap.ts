@@ -14,7 +14,8 @@ export class ImageMap {
     if (image) {
       return image
     } else {
-      console.error(`Failed to load texture for ${key}. Returning default.`)
+      const logger = useLogStore();
+      logger.error(`Failed to load texture for ${key}`, `failedImage|${key}`);
       return this.defaultImage;
     }
   }

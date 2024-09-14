@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { renderSystem } from '~/game/systems';
 import type { Position } from '~/types';
+import { LogType } from "~/types"
 
 let lastFrameTimeMs = 0;
 
 const gameStore = useGameStore();
-
+const logStore = useLogStore();
 
 
 const gameCanvas = ref<HTMLCanvasElement | undefined>()
@@ -30,7 +31,7 @@ const update = (deltaTime: number) => {
 
 const playerFactory = () => {
   const id = gameStore.nextId();
-  gameStore.dataStore.sprites.set(id, { textureName: "blackBox"} );
+  gameStore.dataStore.sprites.set(id, { textureName: "blackBox" } );
   gameStore.dataStore.transforms.set(id, { position: { x: 250, y: 250 }, rotation: 0 });
 }
 
@@ -45,7 +46,7 @@ const initialize = async () => {
   }
 
   await loadImage('blackBox.png', 'blackBox');
-  playerFactory()
+  playerFactory();
 
 
 
@@ -79,6 +80,14 @@ onMounted(async () => {
   <div>
     <ClientOnly>
       <canvas ref="gameCanvas" :width="500" :height="500" />
+      <div style="padding: 4px; width: 100%; max-height: 200px; height: 200px; overflow-y: scroll; font-family: 'Courier New', Courier, monospace; background-color: black;">
+        <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message">
+          <div v-if="log.logType == LogType.Error" style="color: red">ERROR: {{ log.message }}</div>
+          <div v-else-if="log.logType == LogType.Warn" style="color: yellow">WARNING: {{ log.message }}</div>
+          <div v-else-if="log.logType == LogType.Debug" style="color: green">DEBUG: {{ log.message }}</div>
+          <div v-else style="color: white">INFO: {{ log.message }}</div>
+        </div>
+      </div>
     </ClientOnly>
   </div>
 </template>
