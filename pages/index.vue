@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { createPlayerOne } from '~/game/entities/playerOne';
+import { createPlayerOne } from '~/game/entities';
+import { createStaticBox } from '~/game/entities/staticItems';
 import { renderSystem, physicSystem } from '~/game/systems';
+import { collisionSystem } from '~/game/systems/collisionSystem';
 import { inputSystem } from '~/game/systems/inputSystem';
 import { LogType } from "~/types"
 
@@ -33,6 +35,7 @@ const initialize = async () => {
 
   await loadImage('blackBox.png', 'blackBox');
   createPlayerOne();
+  createStaticBox();
 
 
   requestAnimationFrame(mainLoop);
@@ -49,6 +52,7 @@ const update = (deltaTime: number) => {
   }
   inputSystem.update(deltaTime);
   physicSystem.update(deltaTime);
+  collisionSystem.update(deltaTime);
 }
 
 

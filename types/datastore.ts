@@ -1,3 +1,4 @@
+import type { BoxCollider } from "./Collider"
 import type { KeyboardControlled } from "./keyboardControlled"
 import type { Rigidbody } from "./rigidbody"
 import type { Sprite } from "./Sprite"
@@ -9,4 +10,5 @@ export type DataStore = {
   transforms: Map<number, Transform>,
   rigidbodies: Map<number, Rigidbody>,
   keyboardControlled: Map<number, KeyboardControlled>,
+  boxColliders: Map<number, BoxCollider>
 }
