@@ -1,10 +1,11 @@
 import type { DataStore } from "~/types"
 import { defineStore } from 'pinia'
+import { ImageMap } from "~/utils";
 
 type GameStoreState = {
   dataStore: DataStore;
   canvasContext: CanvasRenderingContext2D | null;
-  loadedImages: Map<string, HTMLImageElement>
+  loadedImages: ImageMap
 }
 
 export const useGameStore = defineStore('game', {
@@ -15,13 +16,11 @@ export const useGameStore = defineStore('game', {
       transforms: new Map()
     },
     canvasContext: null,
-    loadedImages: new Map(),
+    loadedImages: new ImageMap(),
   }),
   getters: {},
   actions: {
     nextId(){
-      // this.dataStore.currentId += 1;
-      // return this.dataStore.currentId;
       return ++this.dataStore.currentId
     }
   },

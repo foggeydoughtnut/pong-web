@@ -14,15 +14,7 @@ export const renderSystem: System = {
             gameStore.canvasContext.drawImage(image, transform.position.x, transform.position.y);
           } else {
             console.error(`Image for value: ${value.textureName} didn't exist`);
-            const noTextureSprite = gameStore.loadedImages.get('noTexture');
-            if (noTextureSprite) {
-              gameStore.canvasContext.drawImage(noTextureSprite, transform.position.x, transform.position.y);
-            } else {
-              console.error(`noTexture sprite isn't loading correctly`);
-            }
           }
-        } else {
-          console.error("Missing transform on entity with id: ", key)
         }
       }
     }

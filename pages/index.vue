@@ -18,7 +18,6 @@ const testPos: Position = {
 const update = (deltaTime: number) => {
   if (!gameStore.canvasContext) {
     if (gameCanvas.value) {
-      console.log("Am I called?")
       const ctx = gameCanvas.value.getContext('2d');
       if (ctx) {
         gameStore.canvasContext = ctx;
@@ -35,15 +34,6 @@ const playerFactory = () => {
   gameStore.dataStore.transforms.set(id, { position: { x: 250, y: 250 }, rotation: 0 });
 }
 
-// TODO await loading image
-const loadImage = (imageFileName: string, imageKey: string) => {
-  const image = new Image();
-  image.src = imageFileName;
-  const imageName = imageKey
-  image.onload = () => {
-    gameStore.loadedImages.set(imageName, image);
-  }
-}
 
 const initialize = async () => {
   // Make canvas context available globally
@@ -54,9 +44,7 @@ const initialize = async () => {
     }
   }
 
-  loadImage('noTexture.png', 'noTexture');
-  loadImage('blackBox.png', 'blackBox');
-
+  await loadImage('blackBox.png', 'blackBox');
   playerFactory()
 
 
