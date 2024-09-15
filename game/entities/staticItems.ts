@@ -35,18 +35,18 @@ export const createRoof = (): number => {
     textureName: "roof" 
   });
   gameStore.dataStore.transforms.add(id, { 
-    position: vec2(0, 8),
-    prevPosition: vec2(0, 8),
+    position: vec2(0, -8),
+    prevPosition: vec2(0, -8),
     rotation: 0
   });
   gameStore.dataStore.boxColliders.add(id, {
     size: {
       width: 360,
-      height: 16
+      height: 8
     },
     offset: {
       x: 0,
-      y: 0,
+      y: 8,
     }
   });
   gameStore.dataStore.solid.add(id, {});
@@ -62,14 +62,14 @@ export const createFloor = (): number => {
     textureName: "floor" 
   });
   gameStore.dataStore.transforms.add(id, { 
-    position: vec2(0, 260),
-    prevPosition: vec2(0, 260),
+    position: vec2(0, 268),
+    prevPosition: vec2(0, 268),
     rotation: 0
   });
   gameStore.dataStore.boxColliders.add(id, {
     size: {
       width: 360,
-      height: 16
+      height: 8
     },
     offset: {
       x: 0,

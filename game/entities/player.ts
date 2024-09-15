@@ -19,11 +19,11 @@ export function createPlayerOne(): number{
   gameStore.dataStore.keyboardControlled.add(id, {});
   gameStore.dataStore.boxColliders.add(id, {
     size: {
-      width: 16,
+      width: 8,
       height: 32
     },
     offset: {
-      x: 0,
+      x: 4,
       y: 0,
     }
   });
