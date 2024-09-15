@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createBackground, createBall, createFloor, createPlayerOne, createRoof, createStaticBox } from '~/game/entities';
+import { createBackground, createBall, createFloor, createPlayerOne, createPlayerTwo, createRoof, createStaticBox } from '~/game/entities';
 import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem } from '~/game/systems';
 import { LogType } from "~/types"
 
@@ -43,8 +43,9 @@ const initialize = async () => {
 
   createBackground();
   createFloor();
-  createPlayerOne();
   createRoof();
+  createPlayerOne();
+  createPlayerTwo();
   createBall();
 
 
