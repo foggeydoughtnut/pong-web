@@ -68,11 +68,16 @@ const render = () => {
   }
 }
 
+const cleanup = () => {
+  gameStore.collidedEvents.clear();
+}
+
 const mainLoop = (timestamp: number) => {
   const deltaTime = (timestamp - lastFrameTimeMs) / 1000; // get the delta time since last frame in seconds
   lastFrameTimeMs = timestamp;
   update(deltaTime);
   render();
+  cleanup();
   requestAnimationFrame(mainLoop);
 }
 
