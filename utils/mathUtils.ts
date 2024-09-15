@@ -20,7 +20,7 @@ export const Vec2 = {
   dot(vec1: Vector2, vec2: Vector2){
     return (vec1.x * vec2.x + vec1.y * vec2.y);
   },
-  norm(vec: Vector2){
+  norm(vec: Vector2): Vector2 {
     return this.multiply(vec, 1/(this.dot(vec, vec) || 1));
   },
   reflectX(vec: Vector2) {

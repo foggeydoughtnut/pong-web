@@ -15,7 +15,6 @@ export const bouncingSystem: System = {
             if (reflect) {
               if (reflect.direction === 'X') {
                 gameStore.dataStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectX(val.velocity)}));
-                // break;
               }
               if (reflect.direction === "Y") {
                 gameStore.dataStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectY(val.velocity)}));
