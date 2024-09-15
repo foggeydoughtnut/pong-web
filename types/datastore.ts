@@ -1,11 +1,12 @@
-import type { BoxCollider, KeyboardControlled, Rigidbody, Sprite, Transform, Solid } from "~/game/components"
+import type { BoxCollider, KeyboardControlled, Rigidbody, Sprite, Transform, Solid, Static } from "~/game/components"
 
 export type DataStore = {
-  currentId: number,
-  sprites: Map<number, Sprite>,
-  transforms: Map<number, Transform>,
-  rigidbodies: Map<number, Rigidbody>,
-  keyboardControlled: Map<number, KeyboardControlled>,
+  currentId: number
+  sprites: Map<number, Sprite>
+  transforms: Map<number, Transform>
+  rigidbodies: Map<number, Rigidbody>
+  keyboardControlled: Map<number, KeyboardControlled>
   boxColliders: Map<number, BoxCollider>
   solid: Map<number, Solid>
+  statics: Map<number, Static>
 }

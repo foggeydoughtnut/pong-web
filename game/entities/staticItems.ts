@@ -18,6 +18,7 @@ export const createStaticBox = (position: Vector2): number => {
       height: 16
     }
   });
-  gameStore.dataStore.solid.set(id, {})
+  gameStore.dataStore.solid.set(id, {});
+  gameStore.dataStore.statics.set(id, {});
   return id;
 }

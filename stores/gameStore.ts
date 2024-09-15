@@ -19,7 +19,8 @@ export const useGameStore = defineStore('game', {
       rigidbodies: new Map(),
       keyboardControlled: new Map(),
       boxColliders: new Map(),
-      solid: new Map()
+      solid: new Map(),
+      statics: new Map(),
     },
     canvasContext: null,
     loadedImages: new ImageMap(),
