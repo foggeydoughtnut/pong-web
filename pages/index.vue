@@ -96,7 +96,7 @@ onMounted(async () => {
         <div class="">
           <canvas class="border" ref="gameCanvas" :width="500" :height="500" />
         </div>
-        <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white dark:bg-gray-900 border rounded-md">
+        <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white border rounded-md">
           <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message" class="p-4">
             <div
               v-if="log.logType == LogType.Error"
