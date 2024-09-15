@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createPlayerOne, createStaticBox } from '~/game/entities';
-import { renderSystem, physicSystem, collisionSystem, inputSystem } from '~/game/systems';
+import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem } from '~/game/systems';
 import { LogType } from "~/types"
 
 const DEBUG = true;
@@ -54,6 +54,7 @@ const update = (deltaTime: number) => {
   inputSystem.update(deltaTime);
   physicSystem.update(deltaTime);
   collisionSystem.update(deltaTime);
+  solidSystem.update(deltaTime);
 }
 
 

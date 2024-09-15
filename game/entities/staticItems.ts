@@ -9,7 +9,7 @@ export const createStaticBox = (position: Vector2): number => {
   });
   gameStore.dataStore.transforms.set(id, { 
     position: vec2(position.x, position.y),
-    prevPosition: null,
+    prevPosition: vec2(position.x, position.y),
     rotation: 0
   });
   gameStore.dataStore.boxColliders.set(id, {
@@ -17,6 +17,7 @@ export const createStaticBox = (position: Vector2): number => {
       width: 16,
       height: 16
     }
-  })
+  });
+  gameStore.dataStore.solid.set(id, {})
   return id;
 }

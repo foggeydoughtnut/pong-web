@@ -9,7 +9,7 @@ export function createPlayerOne(): number{
   });
   gameStore.dataStore.transforms.set(id, { 
     position: vec2(150, 250),
-    prevPosition: null,
+    prevPosition: vec2(150, 250),
     rotation: 0
   });
   gameStore.dataStore.rigidbodies.set(id, { 
@@ -22,6 +22,7 @@ export function createPlayerOne(): number{
       width: 16,
       height: 16
     }
-  })
+  });
+  gameStore.dataStore.solid.set(id, {});
   return id;
 }

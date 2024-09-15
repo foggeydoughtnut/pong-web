@@ -5,3 +5,4 @@ export * from "./log";
 export * from "./keyboardControlled";
 export * from "./Collider";
 export * from './rigidbody';
+export * from './Solid';
