@@ -21,6 +21,7 @@ export const useGameStore = defineStore('game', {
       boxColliders: new ComponentMap(),
       solid: new ComponentMap(),
       statics: new ComponentMap(),
+      bounceable: new ComponentMap()
     },
     canvasContext: null,
     loadedImages: new ImageMap(),

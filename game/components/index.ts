@@ -7,3 +7,4 @@ export * from "./Collider";
 export * from './rigidbody';
 export * from './Solid';
 export * from "./Static";
+export * from './bounceable';

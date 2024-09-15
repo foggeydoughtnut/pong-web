@@ -24,5 +24,6 @@ export function createPlayerOne(): number{
     }
   });
   gameStore.dataStore.solid.add(id, {});
+  gameStore.dataStore.bounceable.add(id, {});
   return id;
 }
