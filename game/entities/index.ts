@@ -1,2 +1,3 @@
-export * from "./player"
-export * from './staticItems'
+export * from "./player";
+export * from './staticItems';
+export * from './ball';

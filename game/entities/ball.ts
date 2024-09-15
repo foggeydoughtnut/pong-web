@@ -1,26 +1,25 @@
 import { vec2 } from "~/utils/mathUtils";
 
-export function createPlayerOne(): number{
+export function createBall(): number{
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   
   gameStore.dataStore.sprites.add(id, { 
-    textureName: "player" 
+    textureName: "ball" 
   });
   gameStore.dataStore.transforms.add(id, { 
-    position: vec2(16, 135),
-    prevPosition: vec2(16, 135),
+    position: vec2(180, 135),
+    prevPosition: vec2(180, 135),
     rotation: 0
   });
   gameStore.dataStore.rigidbodies.add(id, { 
     velocity: vec2(0, 0),
     speed: 100
   });
-  gameStore.dataStore.keyboardControlled.add(id, {});
   gameStore.dataStore.boxColliders.add(id, {
     size: {
       width: 16,
-      height: 32
+      height: 16
     }
   });
   gameStore.dataStore.solid.add(id, {});

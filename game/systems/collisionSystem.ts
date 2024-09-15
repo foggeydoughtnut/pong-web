@@ -4,13 +4,10 @@ export const collisionSystem: System = {
   update(deltatime: number){
     const logger = useLogStore();
     const gameStore = useGameStore(useNuxtApp().$pinia);
-    const entries = gameStore.dataStore.boxColliders.entries()
-    for (let [idA, colliderA] of entries) {
-
+    for (let [idA, colliderA] of gameStore.dataStore.boxColliders.entries()) {
       const transformA = gameStore.dataStore.transforms.get(idA);
       if (transformA) {
-        for (let [idB, _] of entries) {
-
+        for (let [idB, _] of gameStore.dataStore.boxColliders.entries()) {
           const transformB = gameStore.dataStore.transforms.get(idB);
           if (transformB) {
             if (idA !== idB) {
@@ -19,7 +16,6 @@ export const collisionSystem: System = {
                 Math.abs(transformA.position.y - transformB.position.y) < colliderA.size.height
               ) {
                 gameStore.addCollisionEvent(idA, idB);
-                console.log('collided')
               }
             }
           } else {

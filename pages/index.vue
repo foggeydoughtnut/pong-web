@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createPlayerOne, createStaticBox } from '~/game/entities';
+import { createBackground, createBall, createFloor, createPlayerOne, createRoof, createStaticBox } from '~/game/entities';
 import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem } from '~/game/systems';
 import { LogType } from "~/types"
 
@@ -34,9 +34,18 @@ const initialize = async () => {
 
   await loadImage('blackBox.png', 'blackBox');
   await loadImage('testingSmallerSprite.png', 'testingSmallerSprite');
+  await loadImage('background.png', 'background');
+  await loadImage('Ball.png', 'ball');
+  await loadImage('Floor.png', 'floor');
+  await loadImage('Roof.png', 'roof');
+  await loadImage('Player.png', 'player')
+
+
+  createBackground();
+  createFloor();
   createPlayerOne();
-  createStaticBox(vec2(250, 250));
-  createStaticBox(vec2(100, 100));
+  createRoof();
+  createBall();
 
 
   requestAnimationFrame(mainLoop);
@@ -92,9 +101,9 @@ onMounted(async () => {
 <template>
   <div>
     <ClientOnly>
-      <div class="grid grid-rows-[auto_1fr] overflow-hidden p-8 h-full w-full">
-        <div class="">
-          <canvas class="border" ref="gameCanvas" :width="500" :height="500" />
+      <div class="grid grid-rows-3 overflow-hidden p-8 h-full w-full">
+        <div class="grid row-span-2 w-3/4">
+          <canvas class="border w-full h-full" ref="gameCanvas" :width="360" :height="270" />
         </div>
         <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white border rounded-md">
           <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message" class="p-4">
