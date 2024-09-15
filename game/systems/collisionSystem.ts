@@ -18,10 +18,7 @@ export const collisionSystem: System = {
                 Math.abs(transformA.position.x - transformB.position.x) < colliderA.size.width &&
                 Math.abs(transformA.position.y - transformB.position.y) < colliderA.size.height
               ) {
-                gameStore.collidedEvents.add({
-                  entityA: idA,
-                  entityB: idB
-                });
+                gameStore.addCollisionEvent(idA, idB);
                 console.log('collided')
               }
             }
@@ -35,7 +32,21 @@ export const collisionSystem: System = {
     }
   },
   draw(){
-
+    const gameStore = useGameStore();
+    if (gameStore.canvasContext) {
+      for (let [key, collider] of  gameStore.dataStore.boxColliders.entries()) {
+        const transform = gameStore.dataStore.transforms.get(key);
+        if (transform) {
+          if (gameStore.collidedEvents.has(key)) {
+            gameStore.canvasContext.strokeStyle = "red";
+          } else {
+            gameStore.canvasContext.strokeStyle = "green";
+          }
+          gameStore.canvasContext.lineWidth = 1
+          gameStore.canvasContext.strokeRect(transform.position.x, transform.position.y, collider.size.width, collider.size.height);
+        }
+      }
+    }
 
   }
 }

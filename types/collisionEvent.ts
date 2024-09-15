@@ -1,4 +1,1 @@
-export type CollisionEvent = {
-  entityA: number;
-  entityB: number
-}
+export type CollisionEvent = readonly [number, number]

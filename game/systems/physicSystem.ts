@@ -17,6 +17,5 @@ export const physicSystem: System = {
     }
   },
   draw(){
-
   }
 }

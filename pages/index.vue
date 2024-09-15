@@ -3,6 +3,8 @@ import { createPlayerOne, createStaticBox } from '~/game/entities';
 import { renderSystem, physicSystem, collisionSystem, inputSystem } from '~/game/systems';
 import { LogType } from "~/types"
 
+const DEBUG = true;
+
 let lastFrameTimeMs = 0;
 
 const gameStore = useGameStore();
@@ -31,8 +33,10 @@ const initialize = async () => {
   window.onkeyup = keyup;
 
   await loadImage('blackBox.png', 'blackBox');
+  await loadImage('testingSmallerSprite.png', 'testingSmallerSprite');
   createPlayerOne();
-  createStaticBox();
+  createStaticBox(vec2(250, 250));
+  createStaticBox(vec2(100, 100));
 
 
   requestAnimationFrame(mainLoop);
@@ -59,6 +63,9 @@ const render = () => {
   }
 
   renderSystem.draw();
+  if (DEBUG) {
+    collisionSystem.draw();
+  }
 }
 
 const mainLoop = (timestamp: number) => {

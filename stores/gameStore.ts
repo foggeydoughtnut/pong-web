@@ -7,7 +7,7 @@ type GameStoreState = {
   canvasContext: CanvasRenderingContext2D | null;
   loadedImages: ImageMap,
   pressedKeys: Set<KeyboardEvent['key']>,
-  collidedEvents: Set<CollisionEvent>
+  collidedEvents: Map<number, number[]>
 }
 
 export const useGameStore = defineStore('game', {
@@ -23,12 +23,22 @@ export const useGameStore = defineStore('game', {
     canvasContext: null,
     loadedImages: new ImageMap(),
     pressedKeys: new Set(),
-    collidedEvents: new Set(),
+    collidedEvents: new Map(),
   }),
   getters: {},
   actions: {
     nextId(){
       return ++this.dataStore.currentId
-    }
+    },
+    addCollisionEvent(entity1: number, entity2: number){
+      if (!this.collidedEvents.has(entity1)){
+        this.collidedEvents.set(entity1, []);
+      }
+      this.collidedEvents.get(entity1)?.push(entity2);
+      if (!this.collidedEvents.has(entity2)){
+        this.collidedEvents.set(entity2, []);
+      }
+      this.collidedEvents.get(entity2)?.push(entity1);
+    },
   },
 })
