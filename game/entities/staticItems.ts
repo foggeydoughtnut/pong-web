@@ -62,8 +62,8 @@ export const createFloor = (): number => {
     textureName: "floor" 
   });
   gameStore.dataStore.transforms.add(id, { 
-    position: vec2(0, 268),
-    prevPosition: vec2(0, 268),
+    position: vec2(0, 262),
+    prevPosition: vec2(0, 262),
     rotation: 0
   });
   gameStore.dataStore.boxColliders.add(id, {

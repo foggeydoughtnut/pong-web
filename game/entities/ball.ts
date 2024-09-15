@@ -13,7 +13,7 @@ export function createBall(): number{
     rotation: 0
   });
   gameStore.dataStore.rigidbodies.add(id, { 
-    velocity: vec2(0, 0),
+    velocity: vec2(-1, 0),
     speed: 100
   });
   gameStore.dataStore.boxColliders.add(id, {

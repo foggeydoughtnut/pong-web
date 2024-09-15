@@ -3,3 +3,4 @@ export * from './physicSystem';
 export * from './collisionSystem';
 export * from './inputSystem';
 export * from './solidSystem';
+export * from './bouncingSystem';

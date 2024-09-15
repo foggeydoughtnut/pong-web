@@ -1,4 +1,4 @@
-import type { Vector2 } from "~/types";
+import type { Vector2 } from "~/game/components";
 
 export function vec2(x: number, y: number): Vector2 {
   return { x, y }
@@ -21,8 +21,12 @@ export const Vec2 = {
     return (vec1.x * vec2.x + vec1.y * vec2.y);
   },
   norm(vec: Vector2){
-
-    const dotProduct = this.dot(vec, vec);
     return this.multiply(vec, 1/(this.dot(vec, vec) || 1));
   },
+  reflectX(vec: Vector2) {
+    return vec2(-vec.x, vec.y);
+  },
+  reflectY(vec: Vector2) {
+    return vec2(vec.x, -vec.y)
+  }
 }

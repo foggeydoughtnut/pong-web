@@ -15,7 +15,7 @@ function createPlayer(keybinds: KeyboardControlled['keybinds'], transform: Trans
   });
   gameStore.dataStore.rigidbodies.add(id, { 
     velocity: vec2(0, 0),
-    speed: 100
+    speed: 10
   });
   gameStore.dataStore.keyboardControlled.add(id, { keybinds: keybinds});
   gameStore.dataStore.boxColliders.add(id, {
