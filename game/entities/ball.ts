@@ -20,6 +20,10 @@ export function createBall(): number{
     size: {
       width: 16,
       height: 16
+    },
+    offset: {
+      x: 0,
+      y: 0,
     }
   });
   gameStore.dataStore.solid.add(id, {});

@@ -21,6 +21,10 @@ export function createPlayerOne(): number{
     size: {
       width: 16,
       height: 32
+    },
+    offset: {
+      x: 0,
+      y: 0,
     }
   });
   gameStore.dataStore.solid.add(id, {});

@@ -16,6 +16,10 @@ export const createStaticBox = (position: Vector2): number => {
     size: {
       width: 16,
       height: 16
+    },
+    offset: {
+      x: 0,
+      y: 0,
     }
   });
   gameStore.dataStore.solid.add(id, {});
@@ -39,6 +43,10 @@ export const createRoof = (): number => {
     size: {
       width: 360,
       height: 16
+    },
+    offset: {
+      x: 0,
+      y: 0,
     }
   });
   gameStore.dataStore.solid.add(id, {});
@@ -62,6 +70,10 @@ export const createFloor = (): number => {
     size: {
       width: 360,
       height: 16
+    },
+    offset: {
+      x: 0,
+      y: 0,
     }
   });
   gameStore.dataStore.solid.add(id, {});
