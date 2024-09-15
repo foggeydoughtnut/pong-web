@@ -8,15 +8,20 @@ export function createPlayerOne(): number{
     textureName: "player" 
   });
   gameStore.dataStore.transforms.add(id, { 
-    position: vec2(16, 135),
-    prevPosition: vec2(16, 135),
+    position: vec2(8, 135),
+    prevPosition: vec2(8, 135),
     rotation: 0
   });
   gameStore.dataStore.rigidbodies.add(id, { 
     velocity: vec2(0, 0),
     speed: 100
   });
-  gameStore.dataStore.keyboardControlled.add(id, {});
+  gameStore.dataStore.keyboardControlled.add(id, {
+    keybinds: {
+      UP: 'w',
+      DOWN: 's'
+    }
+  });
   gameStore.dataStore.boxColliders.add(id, {
     size: {
       width: 8,
