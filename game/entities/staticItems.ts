@@ -51,6 +51,7 @@ export const createRoof = (): number => {
   });
   gameStore.dataStore.solid.add(id, {});
   gameStore.dataStore.statics.add(id, {});
+  gameStore.dataStore.reflectDirections.add(id, { direction: "Y" });
   return id;
 }
 
@@ -78,6 +79,7 @@ export const createFloor = (): number => {
   });
   gameStore.dataStore.solid.add(id, {});
   gameStore.dataStore.statics.add(id, {});
+  gameStore.dataStore.reflectDirections.add(id, { direction: "Y" });
   return id;
 }
 

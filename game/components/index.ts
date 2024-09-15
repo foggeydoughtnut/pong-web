@@ -8,3 +8,4 @@ export * from './rigidbody';
 export * from './Solid';
 export * from "./Static";
 export * from './bounceable';
+export * from './reflectDirection';

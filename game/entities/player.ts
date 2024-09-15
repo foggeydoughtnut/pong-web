@@ -29,7 +29,7 @@ function createPlayer(keybinds: KeyboardControlled['keybinds'], transform: Trans
     }
   });
   gameStore.dataStore.solid.add(id, {});
-  gameStore.dataStore.bounceable.add(id, {});
+  gameStore.dataStore.reflectDirections.add(id, { direction: "X" })
   return id;
 }
 
