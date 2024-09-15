@@ -4,25 +4,25 @@ export function createPlayerOne(): number{
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   
-  gameStore.dataStore.sprites.set(id, { 
+  gameStore.dataStore.sprites.add(id, { 
     textureName: "testingSmallerSprite" 
   });
-  gameStore.dataStore.transforms.set(id, { 
+  gameStore.dataStore.transforms.add(id, { 
     position: vec2(150, 250),
     prevPosition: vec2(150, 250),
     rotation: 0
   });
-  gameStore.dataStore.rigidbodies.set(id, { 
+  gameStore.dataStore.rigidbodies.add(id, { 
     velocity: vec2(0, 0),
     speed: 100
   });
-  gameStore.dataStore.keyboardControlled.set(id, {});
-  gameStore.dataStore.boxColliders.set(id, {
+  gameStore.dataStore.keyboardControlled.add(id, {});
+  gameStore.dataStore.boxColliders.add(id, {
     size: {
       width: 16,
       height: 16
     }
   });
-  gameStore.dataStore.solid.set(id, {});
+  gameStore.dataStore.solid.add(id, {});
   return id;
 }

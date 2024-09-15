@@ -28,7 +28,8 @@ export const inputSystem: System = {
       if (rigidbody){
         const vel = Vec2.multiply(Vec2.norm(vec2(xvel, yvel)), rigidbody.speed);
 
-        gamestore.dataStore.rigidbodies.set(id, {...rigidbody, velocity: vel});
+        gamestore.dataStore.rigidbodies.update(id, (prevVal) => ({speed: prevVal.speed, velocity: vel}));
+
       }
     }
   },
