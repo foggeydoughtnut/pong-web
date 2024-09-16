@@ -29,7 +29,8 @@ function createPlayer(keybinds: KeyboardControlled['keybinds'], transform: Trans
     }
   });
   gameStore.dataStore.solid.add(id, {});
-  gameStore.dataStore.reflectDirections.add(id, { direction: "X" })
+  gameStore.dataStore.reflectDirections.add(id, { direction: "X" });
+  gameStore.dataStore.scores.add(id, { score: 0 });
   return id;
 }
 

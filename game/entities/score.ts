@@ -1,34 +1,19 @@
-export const createScoreOne = (): number => {
-  const gameStore = useGameStore();
-  const id = gameStore.nextId();
-  
-  gameStore.dataStore.gameTexts.add(id, {
-    text: "0",
-    fontFamily: "sans-serif",
-    size: 32,
-    color: 'white'
-  })
-  gameStore.dataStore.transforms.add(id, { 
-    position: vec2(90, 24),
-    prevPosition: vec2(90, 24),
-    rotation: 0
-  });
-  return id;
-}
+import type { Vector2 } from "../components";
 
-export const createScoreTwo = (): number => {
+export const createScore = (position: Vector2, scoreId: number): number => {
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   
+
   gameStore.dataStore.gameTexts.add(id, {
-    text: "0",
+    text: () => (gameStore.dataStore.scores.get(scoreId)?.score.toString() ?? "0"),
     fontFamily: "sans-serif",
     size: 32,
     color: 'white'
   })
   gameStore.dataStore.transforms.add(id, { 
-    position: vec2(270, 24),
-    prevPosition: vec2(270, 24),
+    position: position,
+    prevPosition: position,
     rotation: 0
   });
   return id;

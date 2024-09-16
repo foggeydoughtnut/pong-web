@@ -16,6 +16,10 @@ export const bouncingSystem: System = {
               if (reflect.direction === 'X') {
                 gameStore.dataStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectX(val.velocity)}));
                 gameStore.addSoundEffectEvent(key, 'playerBounce');
+                const score = gameStore.dataStore.scores.get(collidedWithKey);
+                if (score) { 
+                  gameStore.dataStore.scores.update(collidedWithKey, (prevVal) => ({ score: prevVal.score + 1 }))
+                }
               }
               if (reflect.direction === "Y") {
                 gameStore.dataStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectY(val.velocity)}));

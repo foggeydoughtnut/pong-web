@@ -11,7 +11,7 @@ export const textRenderSystem: System = {
           gameStore.canvasContext.fillStyle = value.color;
           gameStore.canvasContext.font = `${value.size}px ${value.fontFamily}`
           gameStore.canvasContext.textRendering = "optimizeLegibility";
-          gameStore.canvasContext.fillText(value.text, transform.position.x, transform.position.y + value.size/2)
+          gameStore.canvasContext.fillText(value.text(), transform.position.x, transform.position.y + value.size/2)
         }
       }
     }

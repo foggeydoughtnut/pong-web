@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createBackground, createBall, createFloor, createPlayerOne, createPlayerTwo, createRoof, createScoreOne, createScoreTwo, createStaticBox } from '~/game/entities';
+import { createBackground, createBall, createFloor, createPlayerOne, createPlayerTwo, createRoof, createScore, createStaticBox } from '~/game/entities';
 import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem } from '~/game/systems';
 import { LogType } from "~/types"
 
@@ -44,16 +44,16 @@ const initialize = async () => {
   loadAudioFile('/audio/score.ogg', 'score');
   loadAudioFile('/audio/wallBounce.ogg', 'wallBounce');
 
-
-
   createBackground();
   createFloor();
   createRoof();
-  createPlayerOne();
-  createPlayerTwo();
   createBall();
-  createScoreOne();
-  createScoreTwo();
+
+  const playerOneId = createPlayerOne();
+  const playerTwoId = createPlayerTwo();
+
+  createScore(vec2(80, 24), playerOneId);
+  createScore(vec2(270, 24), playerTwoId);
 
 
   requestAnimationFrame(mainLoop);

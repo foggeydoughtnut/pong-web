@@ -1,5 +1,5 @@
 export type GameText = {
-  text: string;
+  text: (() => string);
   size: number;
   color: string;
   fontFamily: string;

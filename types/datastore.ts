@@ -1,4 +1,4 @@
-import type { BoxCollider, KeyboardControlled, Rigidbody, Sprite, Transform, Solid, Static, Bounceable, ReflectDirection, SoundEffect, GameText } from "~/game/components"
+import type { BoxCollider, KeyboardControlled, Rigidbody, Sprite, Transform, Solid, Static, Bounceable, ReflectDirection, SoundEffect, GameText, Score } from "~/game/components"
 import { ComponentMap } from "~/utils/ComponentMap"
 
 export type DataStore = {
@@ -13,4 +13,5 @@ export type DataStore = {
   bounceable: ComponentMap<Bounceable>
   reflectDirections: ComponentMap<ReflectDirection>
   gameTexts: ComponentMap<GameText>
+  scores: ComponentMap<Score>
 }

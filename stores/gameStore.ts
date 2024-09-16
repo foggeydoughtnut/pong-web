@@ -27,6 +27,7 @@ export const useGameStore = defineStore('game', {
       bounceable: new ComponentMap(),
       reflectDirections: new ComponentMap(),
       gameTexts: new ComponentMap(),
+      scores: new ComponentMap(),
     },
     canvasContext: null,
     audioContext: new AudioContext(),
