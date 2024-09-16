@@ -5,9 +5,12 @@ import { ImageMap } from "~/utils";
 type GameStoreState = {
   dataStore: DataStore;
   canvasContext: CanvasRenderingContext2D | null;
+  audioContext: AudioContext;
   loadedImages: ImageMap,
+  loadedAudio: Map<string, HTMLAudioElement>
   pressedKeys: Set<KeyboardEvent['key']>,
   collidedEvents: Map<number, Set<number>>
+  soundEffectEvents: Map<number, string>
 }
 
 export const useGameStore = defineStore('game', {
@@ -22,12 +25,15 @@ export const useGameStore = defineStore('game', {
       solid: new ComponentMap(),
       statics: new ComponentMap(),
       bounceable: new ComponentMap(),
-      reflectDirections: new ComponentMap()
+      reflectDirections: new ComponentMap(),
     },
     canvasContext: null,
+    audioContext: new AudioContext(),
     loadedImages: new ImageMap(),
     pressedKeys: new Set(),
     collidedEvents: new Map(),
+    loadedAudio: new Map(),
+    soundEffectEvents: new Map(),
   }),
   getters: {},
   actions: {
@@ -44,5 +50,8 @@ export const useGameStore = defineStore('game', {
       }
       this.collidedEvents.get(entity2)?.add(entity1);
     },
+    addSoundEffectEvent(entity1: number, name: string) {
+      this.soundEffectEvents.set(entity1, name);
+    }
   },
 })

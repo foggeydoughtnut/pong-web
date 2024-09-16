@@ -1,4 +1,4 @@
-import type { BoxCollider, KeyboardControlled, Rigidbody, Sprite, Transform, Solid, Static, Bounceable, ReflectDirection } from "~/game/components"
+import type { BoxCollider, KeyboardControlled, Rigidbody, Sprite, Transform, Solid, Static, Bounceable, ReflectDirection, SoundEffect } from "~/game/components"
 import { ComponentMap } from "~/utils/ComponentMap"
 
 export type DataStore = {

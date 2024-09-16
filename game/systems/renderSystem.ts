@@ -3,7 +3,6 @@ export const renderSystem: System = {
   update(deltatime: number) {
   },
   draw: () => {
-    // TODO: Extend the default map.get to make it so that is what handles returning the noTexture sprite when the textureName doesn't exist
     const gameStore = useGameStore(useNuxtApp().$pinia);
     if (gameStore.canvasContext) {
       for (let [key, value] of  gameStore.dataStore.sprites.entries()) {

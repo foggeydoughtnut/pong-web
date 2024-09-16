@@ -15,18 +15,16 @@ export const bouncingSystem: System = {
             if (reflect) {
               if (reflect.direction === 'X') {
                 gameStore.dataStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectX(val.velocity)}));
+                gameStore.addSoundEffectEvent(key, 'playerBounce');
               }
               if (reflect.direction === "Y") {
                 gameStore.dataStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectY(val.velocity)}));
+                gameStore.addSoundEffectEvent(key, 'wallBounce');
               }
             }
           }
         }
       }
-      // if (collision?.some((num: number) => gameStore.dataStore.bounceable.has(num))) {     
-        
-      //   gameStore.dataStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectX(val.velocity)}));
-      // }
     }
   },
   draw(){

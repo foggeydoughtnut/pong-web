@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { createBackground, createBall, createFloor, createPlayerOne, createPlayerTwo, createRoof, createStaticBox } from '~/game/entities';
-import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem } from '~/game/systems';
+import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem } from '~/game/systems';
 import { LogType } from "~/types"
 
 const DEBUG = true;
@@ -40,6 +40,11 @@ const initialize = async () => {
   await loadImage('Roof.png', 'roof');
   await loadImage('Player.png', 'player')
 
+  loadAudioFile('playerBounce.ogg', 'playerBounce');
+  loadAudioFile('score.ogg', 'score');
+  loadAudioFile('wallBounce.ogg', 'wallBounce');
+
+
 
   createBackground();
   createFloor();
@@ -66,6 +71,7 @@ const update = (deltaTime: number) => {
   collisionSystem.update(deltaTime);
   solidSystem.update(deltaTime);
   bouncingSystem.update(deltaTime);
+  audioSystem.update(deltaTime);
 }
 
 
@@ -82,6 +88,7 @@ const render = () => {
 
 const cleanup = () => {
   gameStore.collidedEvents.clear();
+  gameStore.soundEffectEvents.clear();
 }
 
 const mainLoop = (timestamp: number) => {
