@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { createBackground, createBall, createFloor, createPlayerOne, createPlayerTwo, createRoof, createStaticBox } from '~/game/entities';
-import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem } from '~/game/systems';
+import { createBackground, createBall, createFloor, createPlayerOne, createPlayerTwo, createRoof, createScoreOne, createScoreTwo, createStaticBox } from '~/game/entities';
+import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem } from '~/game/systems';
 import { LogType } from "~/types"
 
 const DEBUG = true;
@@ -52,6 +52,8 @@ const initialize = async () => {
   createPlayerOne();
   createPlayerTwo();
   createBall();
+  createScoreOne();
+  createScoreTwo();
 
 
   requestAnimationFrame(mainLoop);
@@ -81,6 +83,7 @@ const render = () => {
   }
 
   renderSystem.draw();
+  textRenderSystem.draw();
   if (DEBUG) {
     collisionSystem.draw();
   }

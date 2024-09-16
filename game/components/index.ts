@@ -10,3 +10,4 @@ export * from "./Static";
 export * from './bounceable';
 export * from './reflectDirection';
 export * from './audio';
+export * from './GameText';

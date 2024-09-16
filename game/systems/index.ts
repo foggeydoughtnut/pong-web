@@ -5,3 +5,4 @@ export * from './inputSystem';
 export * from './solidSystem';
 export * from './bouncingSystem';
 export * from './audioSystem';
+export * from './textRenderSystem';
