@@ -32,17 +32,17 @@ const initialize = async () => {
   window.onkeydown = keydown;
   window.onkeyup = keyup;
 
-  await loadImage('blackBox.png', 'blackBox');
-  await loadImage('testingSmallerSprite.png', 'testingSmallerSprite');
-  await loadImage('background.png', 'background');
-  await loadImage('Ball.png', 'ball');
-  await loadImage('Floor.png', 'floor');
-  await loadImage('Roof.png', 'roof');
-  await loadImage('Player.png', 'player')
+  await loadImage('/sprites/blackBox.png', 'blackBox');
+  await loadImage('/sprites/testingSmallerSprite.png', 'testingSmallerSprite');
+  await loadImage('/sprites/background.png', 'background');
+  await loadImage('/sprites/Ball.png', 'ball');
+  await loadImage('/sprites/Floor.png', 'floor');
+  await loadImage('/sprites/Roof.png', 'roof');
+  await loadImage('/sprites/Player.png', 'player')
 
-  loadAudioFile('playerBounce.ogg', 'playerBounce');
-  loadAudioFile('score.ogg', 'score');
-  loadAudioFile('wallBounce.ogg', 'wallBounce');
+  loadAudioFile('/audio/playerBounce.ogg', 'playerBounce');
+  loadAudioFile('/audio/score.ogg', 'score');
+  loadAudioFile('/audio/wallBounce.ogg', 'wallBounce');
 
 
 
