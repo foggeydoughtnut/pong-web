@@ -4,7 +4,7 @@ export const createScoreOne = (): number => {
   
   gameStore.dataStore.gameTexts.add(id, {
     text: "0",
-    fontFamily: "arial",
+    fontFamily: "sans-serif",
     size: 32,
     color: 'white'
   })
@@ -22,7 +22,7 @@ export const createScoreTwo = (): number => {
   
   gameStore.dataStore.gameTexts.add(id, {
     text: "0",
-    fontFamily: "arial",
+    fontFamily: "sans-serif",
     size: 32,
     color: 'white'
   })
