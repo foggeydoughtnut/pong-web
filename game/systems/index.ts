@@ -6,3 +6,4 @@ export * from './solidSystem';
 export * from './bouncingSystem';
 export * from './audioSystem';
 export * from './textRenderSystem';
+export * from './goalSystem';

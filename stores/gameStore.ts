@@ -1,22 +1,23 @@
-import type { DataStore, CollisionEvent } from "~/types"
+import type { ComponentStore, CollisionEvent, System } from "~/types"
 import { defineStore } from 'pinia'
 import { ImageMap } from "~/utils";
 
 type GameStoreState = {
-  dataStore: DataStore;
+  componentStore: ComponentStore;
   canvasContext: CanvasRenderingContext2D | null;
   audioContext: AudioContext;
   loadedImages: ImageMap,
   loadedAudio: Map<string, HTMLAudioElement>
   pressedKeys: Set<KeyboardEvent['key']>,
   collidedEvents: Map<number, Set<number>>
-  soundEffectEvents: Map<number, string>
+  soundEffectEvents: Map<number, string>,
+  deletionQueue: Set<number>,
+  currentId: number,
 }
 
 export const useGameStore = defineStore('game', {
   state: (): GameStoreState => ({
-    dataStore: {
-      currentId: 0,
+    componentStore: {
       sprites: new ComponentMap(),
       transforms: new ComponentMap(),
       rigidbodies: new ComponentMap(),
@@ -28,6 +29,8 @@ export const useGameStore = defineStore('game', {
       reflectDirections: new ComponentMap(),
       gameTexts: new ComponentMap(),
       scores: new ComponentMap(),
+      goals: new ComponentMap(),
+      balls: new ComponentMap(),
     },
     canvasContext: null,
     audioContext: new AudioContext(),
@@ -36,11 +39,13 @@ export const useGameStore = defineStore('game', {
     collidedEvents: new Map(),
     loadedAudio: new Map(),
     soundEffectEvents: new Map(),
+    deletionQueue: new Set(),
+    currentId: 0,
   }),
   getters: {},
   actions: {
     nextId(){
-      return ++this.dataStore.currentId
+      return ++this.currentId
     },
     addCollisionEvent(entity1: number, entity2: number){
       if (!this.collidedEvents.has(entity1)){
@@ -54,6 +59,11 @@ export const useGameStore = defineStore('game', {
     },
     addSoundEffectEvent(entity1: number, name: string) {
       this.soundEffectEvents.set(entity1, name);
+    },
+    deleteEntity(entity: number, removingSystem: System){
+      const logger = useLogStore();
+      logger.debug(`System ${removingSystem.systemName} is removing entity ${entity}`);
+      this.deletionQueue.add(entity);
     }
   },
 })

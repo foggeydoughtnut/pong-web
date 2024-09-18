@@ -1,5 +1,6 @@
 import type { System } from "~/types";
 export const audioSystem: System = {
+  systemName: "Audio System",
   update(deltatime: number) {
     const gameStore = useGameStore(useNuxtApp().$pinia);
     const logger = useLogStore(useNuxtApp().$pinia);

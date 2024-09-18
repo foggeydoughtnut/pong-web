@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { createBackground, createBall, createFloor, createPlayerOne, createPlayerTwo, createRoof, createScore, createStaticBox } from '~/game/entities';
-import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem } from '~/game/systems';
+import type { ComponentMap } from '#imports';
+import { createBackground, createBall, createFloor, createGoal, createPlayerOne, createPlayerTwo, createRoof, createScore, createStaticBox } from '~/game/entities';
+import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem } from '~/game/systems';
 import { LogType } from "~/types"
 
 const DEBUG = true;
@@ -54,9 +55,15 @@ const initialize = async () => {
 
   createScore(vec2(80, 24), playerOneId);
   createScore(vec2(270, 24), playerTwoId);
+  createGoal(vec2(360, 0), playerOneId);
+  createGoal(vec2(-16, 0), playerTwoId);
 
 
   requestAnimationFrame(mainLoop);
+}
+
+const handleInput = (deltaTime: number) => {
+  inputSystem.update(deltaTime);
 }
 
 const update = (deltaTime: number) => {
@@ -68,11 +75,13 @@ const update = (deltaTime: number) => {
       }
     }
   }
-  inputSystem.update(deltaTime);
+  handleInput(deltaTime);
+
   physicSystem.update(deltaTime);
   collisionSystem.update(deltaTime);
   solidSystem.update(deltaTime);
   bouncingSystem.update(deltaTime);
+  goalSystem.update(deltaTime);
   audioSystem.update(deltaTime);
 }
 
@@ -92,6 +101,11 @@ const render = () => {
 const cleanup = () => {
   gameStore.collidedEvents.clear();
   gameStore.soundEffectEvents.clear();
+  for (const removeKey of gameStore.deletionQueue) {
+    for (const system of Object.values(gameStore.componentStore)){
+      system.delete(removeKey);
+    }
+  }
 }
 
 const mainLoop = (timestamp: number) => {
@@ -113,9 +127,9 @@ onMounted(async () => {
 <template>
   <div>
     <ClientOnly>
-      <div class="grid grid-rows-3 overflow-hidden p-8 h-full w-full">
-        <div class="grid row-span-2 w-3/4">
-          <canvas class="border w-full h-full" ref="gameCanvas" :width="360" :height="270" />
+      <div class="grid grid-rows-[auto_1fr] gap-4 overflow-hidden p-8 h-full w-full">
+        <div class="grid place-items-center justify-center items-center">
+          <canvas class="border" ref="gameCanvas" :width="360" :height="270" />
         </div>
         <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white border rounded-md">
           <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message" class="p-4">

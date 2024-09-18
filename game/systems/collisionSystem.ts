@@ -24,14 +24,15 @@ const intersects = (entityA: { transform: Transform, collider: BoxCollider}, ent
 }
 
 export const collisionSystem: System = {
+  systemName: "Collision System",
   update(deltatime: number){
     const logger = useLogStore();
     const gameStore = useGameStore(useNuxtApp().$pinia);
-    for (let [idA, colliderA] of gameStore.dataStore.boxColliders.entries()) {
-      const transformA = gameStore.dataStore.transforms.get(idA);
+    for (let [idA, colliderA] of gameStore.componentStore.boxColliders.entries()) {
+      const transformA = gameStore.componentStore.transforms.get(idA);
       if (transformA) {
-        for (let [idB, colliderB] of gameStore.dataStore.boxColliders.entries()) {
-          const transformB = gameStore.dataStore.transforms.get(idB);
+        for (let [idB, colliderB] of gameStore.componentStore.boxColliders.entries()) {
+          const transformB = gameStore.componentStore.transforms.get(idB);
           if (transformB) {
             if (idA !== idB) {
               if (intersects({ transform: transformA, collider: colliderA }, { transform: transformB, collider: colliderB })) {
@@ -39,19 +40,19 @@ export const collisionSystem: System = {
               }              
             }
           } else {
-            console.error("Transform not found on entity ", idB);
+            logger.error(`Transform not found on entity ${idB}`);
           }
         }
       } else {
-        console.error("No transform found on object: ", idA)
+        logger.error(`Transform not found on entity ${idA}`);
       }
     }
   },
   draw(){
     const gameStore = useGameStore();
     if (gameStore.canvasContext) {
-      for (let [key, collider] of  gameStore.dataStore.boxColliders.entries()) {
-        const transform = gameStore.dataStore.transforms.get(key);
+      for (let [key, collider] of  gameStore.componentStore.boxColliders.entries()) {
+        const transform = gameStore.componentStore.transforms.get(key);
         if (transform) {
           if (gameStore.collidedEvents.has(key)) {
             gameStore.canvasContext.strokeStyle = "red";

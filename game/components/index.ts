@@ -12,3 +12,4 @@ export * from './reflectDirection';
 export * from './audio';
 export * from './GameText';
 export * from "./score";
+export * from './ball';

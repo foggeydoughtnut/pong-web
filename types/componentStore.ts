@@ -1,8 +1,8 @@
-import type { BoxCollider, KeyboardControlled, Rigidbody, Sprite, Transform, Solid, Static, Bounceable, ReflectDirection, SoundEffect, GameText, Score } from "~/game/components"
+import type { BoxCollider, KeyboardControlled, Rigidbody, Sprite, Transform, Solid, Static, Bounceable, ReflectDirection, SoundEffect, GameText, Score, Ball } from "~/game/components"
+import type { Goal } from "~/game/components/goal"
 import { ComponentMap } from "~/utils/ComponentMap"
 
-export type DataStore = {
-  currentId: number
+export type ComponentStore = {
   sprites: ComponentMap<Sprite>
   transforms: ComponentMap<Transform>
   rigidbodies: ComponentMap<Rigidbody>
@@ -14,4 +14,6 @@ export type DataStore = {
   reflectDirections: ComponentMap<ReflectDirection>
   gameTexts: ComponentMap<GameText>
   scores: ComponentMap<Score>
+  goals: ComponentMap<Goal>
+  balls: ComponentMap<Ball> // REMIND TO ASK ABOUT HTIS
 }

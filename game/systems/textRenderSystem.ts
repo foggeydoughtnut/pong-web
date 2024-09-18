@@ -1,12 +1,13 @@
 import type { System } from "~/types";
 export const textRenderSystem: System = {
+  systemName: "Text Render System",
   update(deltatime: number) {
   },
   draw: () => {
     const gameStore = useGameStore(useNuxtApp().$pinia);
     if (gameStore.canvasContext) {
-      for (let [key, value] of  gameStore.dataStore.gameTexts.entries()) {
-        const transform = gameStore.dataStore.transforms.get(key);
+      for (let [key, value] of  gameStore.componentStore.gameTexts.entries()) {
+        const transform = gameStore.componentStore.transforms.get(key);
         if (transform) {
           gameStore.canvasContext.fillStyle = value.color;
           gameStore.canvasContext.font = `${value.size}px ${value.fontFamily}`

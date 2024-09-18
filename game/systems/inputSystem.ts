@@ -2,10 +2,11 @@ import type { System } from "~/types";
 import { vec2 } from "~/utils/mathUtils";
 
 export const inputSystem: System = {
+  systemName: "Input System",
   update(deltatime) {
     const gamestore = useGameStore();
-    for (const [id, controls] of gamestore.dataStore.keyboardControlled.entries()){
-      const rigidbody = gamestore.dataStore.rigidbodies.get(id);
+    for (const [id, controls] of gamestore.componentStore.keyboardControlled.entries()){
+      const rigidbody = gamestore.componentStore.rigidbodies.get(id);
       if (rigidbody){
 
         let xvel = 0;
@@ -20,7 +21,7 @@ export const inputSystem: System = {
 
         const vel = Vec2.multiply(Vec2.norm(vec2(xvel, yvel)), rigidbody.speed);
 
-        gamestore.dataStore.rigidbodies.update(id, (prevVal) => ({speed: prevVal.speed, velocity: vel}));
+        gamestore.componentStore.rigidbodies.update(id, (prevVal) => ({speed: prevVal.speed, velocity: vel}));
 
       }
     }

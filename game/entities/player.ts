@@ -5,20 +5,20 @@ function createPlayer(keybinds: KeyboardControlled['keybinds'], transform: Trans
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   
-  gameStore.dataStore.sprites.add(id, { 
+  gameStore.componentStore.sprites.add(id, { 
     textureName: "player" 
   });
-  gameStore.dataStore.transforms.add(id, { 
+  gameStore.componentStore.transforms.add(id, { 
     position: vec2(transform.position.x, transform.position.y),
     prevPosition: vec2(transform.position.x, transform.position.y),
     rotation: transform.rotation
   });
-  gameStore.dataStore.rigidbodies.add(id, { 
+  gameStore.componentStore.rigidbodies.add(id, { 
     velocity: vec2(0, 0),
     speed: 10
   });
-  gameStore.dataStore.keyboardControlled.add(id, { keybinds: keybinds});
-  gameStore.dataStore.boxColliders.add(id, {
+  gameStore.componentStore.keyboardControlled.add(id, { keybinds: keybinds});
+  gameStore.componentStore.boxColliders.add(id, {
     size: {
       width: 8,
       height: 32
@@ -28,9 +28,9 @@ function createPlayer(keybinds: KeyboardControlled['keybinds'], transform: Trans
       y: 0,
     }
   });
-  gameStore.dataStore.solid.add(id, {});
-  gameStore.dataStore.reflectDirections.add(id, { direction: "X" });
-  gameStore.dataStore.scores.add(id, { score: 0 });
+  gameStore.componentStore.solid.add(id, {});
+  gameStore.componentStore.reflectDirections.add(id, { direction: "X" });
+  gameStore.componentStore.scores.add(id, { score: 0 });
   return id;
 }
 
