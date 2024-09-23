@@ -31,6 +31,7 @@ export const useGameStore = defineStore('game', {
       scores: new ComponentMap(),
       goals: new ComponentMap(),
       balls: new ComponentMap(),
+      timers: new ComponentMap(),
     },
     canvasContext: null,
     audioContext: new AudioContext(),

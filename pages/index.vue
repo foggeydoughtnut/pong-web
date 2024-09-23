@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { ComponentMap } from '#imports';
-import { createBackground, createBall, createFloor, createGoal, createPlayerOne, createPlayerTwo, createRoof, createScore, createStaticBox } from '~/game/entities';
+import { createBackground, createBall, createFloor, createGameTimer, createGoal, createPlayerOne, createPlayerTwo, createRoof, createScore, createStaticBox } from '~/game/entities';
 import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem } from '~/game/systems';
+import { timerSystem } from '~/game/systems/timerSystem';
 import { LogType } from "~/types"
 
 const DEBUG = true;
@@ -21,7 +22,9 @@ function keyup(ev: KeyboardEvent){
   gameStore.pressedKeys.delete(ev.key);
 }
 
+
 const initialize = async () => {
+
   // Make canvas context available globally
   if (gameCanvas.value) {
     const ctx = gameCanvas.value.getContext('2d');
@@ -48,16 +51,18 @@ const initialize = async () => {
   createBackground();
   createFloor();
   createRoof();
-  createBall();
+  // createBall();
 
   const playerOneId = createPlayerOne();
   const playerTwoId = createPlayerTwo();
 
+  
   createScore(vec2(80, 24), playerOneId);
   createScore(vec2(270, 24), playerTwoId);
   createGoal(vec2(360, 0), playerOneId);
   createGoal(vec2(-16, 0), playerTwoId);
 
+  createGameTimer(vec2(80, 96), () => (createBall(-1)));
 
   requestAnimationFrame(mainLoop);
 }
@@ -83,6 +88,7 @@ const update = (deltaTime: number) => {
   bouncingSystem.update(deltaTime);
   goalSystem.update(deltaTime);
   audioSystem.update(deltaTime);
+  timerSystem.update(deltaTime);
 }
 
 

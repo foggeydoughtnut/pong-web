@@ -1,6 +1,6 @@
 import { vec2 } from "~/utils/mathUtils";
 
-export function createBall(): number{
+export function createBall(xDirection: 1 | -1): number{
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   
@@ -12,10 +12,10 @@ export function createBall(): number{
     prevPosition: vec2(180, 135),
     rotation: 0
   });
-  gameStore.componentStore.rigidbodies.add(id, { 
-    velocity: vec2(-1, 0.5),
-    speed: 100
-  });
+  gameStore.componentStore.rigidbodies.add(id, {
+    velocity: vec2(xDirection, Math.max(0.3, Math.random()) * RandomEvent(0.5, 1, -1)),
+    speed: 125
+  })
   gameStore.componentStore.boxColliders.add(id, {
     size: {
       width: 8,
