@@ -22,10 +22,9 @@ function keyup(ev: KeyboardEvent){
   gameStore.pressedKeys.delete(ev.key);
 }
 
-
-const scenes: Scene[] = [ mainGameScene, gameOverScene ]
-
 const initialize = async () => {
+  gameStore.addScene('main-game', mainGameScene);
+  gameStore.addScene('game-over', gameOverScene);
 
   // Make canvas context available globally
   if (gameCanvas.value) {
@@ -50,11 +49,11 @@ const initialize = async () => {
   loadAudioFile('/audio/score.ogg', 'score');
   loadAudioFile('/audio/wallBounce.ogg', 'wallBounce');
 
-  const scene = scenes.at(gameStore.currentSceneId);
+  const scene = gameStore.scenes.get(gameStore.currentSceneName);
   if (scene) {
     scene.createEntities();
   } else {
-    logStore.error(`Scene ${gameStore.currentSceneId} does not exist`)
+    logStore.error(`Scene ${gameStore.currentSceneName} does not exist`)
   }
 
   requestAnimationFrame(mainLoop);
@@ -80,25 +79,25 @@ const update = (deltaTime: number) => {
     }
   }
   
-  for (const newSceneId of gameStore.sceneSwitchQueue) {
-    if (newSceneId !== gameStore.currentSceneId) {
-      gameStore.currentSceneId = newSceneId;
-      const newScene = scenes.at(newSceneId);
+  for (const newSceneName of gameStore.sceneSwitchQueue) {
+    if (newSceneName !== gameStore.currentSceneName) {
+      gameStore.currentSceneName = newSceneName;
+      const newScene = gameStore.scenes.get(newSceneName);
       if (newScene) {
         removeData();
         newScene.createEntities();
       } else {
-        logStore.error(`Scene ${newSceneId} does not exist`)
+        logStore.error(`Scene ${newSceneName} does not exist`)
       }
     }
   }
 
-  const scene = scenes.at(gameStore.currentSceneId);
+  const scene = gameStore.scenes.get(gameStore.currentSceneName);
   if (scene) {
     handleInput(deltaTime, scene);
     scene.update(deltaTime);
   } else {
-    logStore.error(`Scene ${gameStore.currentSceneId} does not exist`)
+    logStore.error(`Scene ${gameStore.currentSceneName} does not exist`)
   }
 }
 
@@ -107,11 +106,11 @@ const render = () => {
   if (gameCanvas.value && gameStore.canvasContext) {
     gameStore.canvasContext.clearRect(0, 0, gameCanvas.value.width, gameCanvas.value.height);
   }
-  const scene = scenes.at(gameStore.currentSceneId);
+  const scene = gameStore.scenes.get(gameStore.currentSceneName);
   if (scene) {
     scene.render();
   } else {
-    logStore.error(`Scene ${gameStore.currentSceneId} does not exist`)
+    logStore.error(`Scene ${gameStore.currentSceneName} does not exist`)
   }
 }
 

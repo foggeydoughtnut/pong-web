@@ -1,4 +1,4 @@
-import type { ComponentStore, CollisionEvent, System } from "~/types"
+import type { ComponentStore, CollisionEvent, System, Scene, ScenesAvailable } from "~/types"
 import { defineStore } from 'pinia'
 import { ImageMap } from "~/utils";
 
@@ -13,9 +13,9 @@ type GameStoreState = {
   soundEffectEvents: Map<number, string>,
   deletionQueue: Set<number>,
   currentId: number,
-  currentSceneId: number;
-  sceneSwitchQueue: Set<number>
-  
+  currentSceneName: ScenesAvailable;
+  sceneSwitchQueue: Set<ScenesAvailable>
+  scenes: Map<string, Scene>
 }
 
 export const useGameStore = defineStore('game', {
@@ -46,7 +46,8 @@ export const useGameStore = defineStore('game', {
     deletionQueue: new Set(),
     sceneSwitchQueue: new Set(),
     currentId: 0,
-    currentSceneId: 0,
+    currentSceneName: "main-game",
+    scenes: new Map()
   }),
   getters: {},
   actions: {
@@ -71,8 +72,11 @@ export const useGameStore = defineStore('game', {
       logger.debug(`System ${removingSystem.systemName} is removing entity ${entity}`);
       this.deletionQueue.add(entity);
     },
-    queueSceneSwitch(id: number) {
-      this.sceneSwitchQueue.add(id)
+    queueSceneSwitch(name: ScenesAvailable) {
+      this.sceneSwitchQueue.add(name);
+    },
+    addScene(name: string, scene: Scene) {
+      this.scenes.set(name, scene);
     }
   },
 })

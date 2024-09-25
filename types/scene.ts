@@ -5,3 +5,5 @@ export interface Scene {
   render(): void;
   sceneName: string;
 }
+
+export type ScenesAvailable = "main-game" | "game-over"
