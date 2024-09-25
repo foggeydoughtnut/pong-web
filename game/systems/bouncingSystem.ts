@@ -15,11 +15,11 @@ export const bouncingSystem: System = {
             const reflect = gameStore.componentStore.reflectDirections.get(collidedWithKey);
             if (reflect) {
               if (reflect.direction === 'X') {
-                gameStore.componentStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectX(val.velocity)}));
+                gameStore.componentStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectX(val.velocity), speed: val.speed + 10 }));
                 gameStore.addSoundEffectEvent(key, 'playerBounce');
               }
               if (reflect.direction === "Y") {
-                gameStore.componentStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectY(val.velocity)}));
+                gameStore.componentStore.rigidbodies.update(key, (val: Rigidbody) => ({...val, velocity: Vec2.reflectY(val.velocity), speed: val.speed + 10 }));
                 gameStore.addSoundEffectEvent(key, 'wallBounce');
               }
             }

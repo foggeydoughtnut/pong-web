@@ -14,7 +14,7 @@ export function createBall(xDirection: 1 | -1): number{
   });
   gameStore.componentStore.rigidbodies.add(id, {
     velocity: vec2(xDirection, Math.max(0.3, Math.random()) * RandomEvent(0.5, 1, -1)),
-    speed: 125
+    speed: 115
   })
   gameStore.componentStore.boxColliders.add(id, {
     size: {
