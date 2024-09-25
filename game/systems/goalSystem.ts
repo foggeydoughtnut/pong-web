@@ -21,6 +21,17 @@ export const goalSystem: System = {
                 gameStore.componentStore.scores.update(goal.playerId, (prevVal) => ({ score: prevVal.score + 1 }));
                 // Delete ball
                 gameStore.deleteEntity(collidedWithKey, goalSystem);
+
+                // Check if player has won
+
+                const newPlayerScore = gameStore.componentStore.scores.get(goal.playerId)?.score
+                if (newPlayerScore) {
+                  if (newPlayerScore >= 11) {
+                    gameStore.queueSceneSwitch(gameStore.currentSceneId + 1);
+                  }
+                }
+                
+
                 const goalTransform = gameStore.componentStore.transforms.get(key)
                 if (goalTransform) {
                   if (goalTransform.position.x < 180) {

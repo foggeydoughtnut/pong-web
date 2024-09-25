@@ -13,6 +13,9 @@ type GameStoreState = {
   soundEffectEvents: Map<number, string>,
   deletionQueue: Set<number>,
   currentId: number,
+  currentSceneId: number;
+  sceneSwitchQueue: Set<number>
+  
 }
 
 export const useGameStore = defineStore('game', {
@@ -41,7 +44,9 @@ export const useGameStore = defineStore('game', {
     loadedAudio: new Map(),
     soundEffectEvents: new Map(),
     deletionQueue: new Set(),
+    sceneSwitchQueue: new Set(),
     currentId: 0,
+    currentSceneId: 0,
   }),
   getters: {},
   actions: {
@@ -65,6 +70,9 @@ export const useGameStore = defineStore('game', {
       const logger = useLogStore();
       logger.debug(`System ${removingSystem.systemName} is removing entity ${entity}`);
       this.deletionQueue.add(entity);
+    },
+    queueSceneSwitch(id: number) {
+      this.sceneSwitchQueue.add(id)
     }
   },
 })

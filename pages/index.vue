@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ComponentMap } from '#imports';
 import { createBackground, createBall, createFloor, createGameTimer, createGoal, createPlayerOne, createPlayerTwo, createRoof, createScore, createStaticBox } from '~/game/entities';
-import { mainGame } from '~/game/scenes/mainGame';
+import { mainGameScene, gameOverScene } from '~/game/scenes';
 import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem } from '~/game/systems';
 import { timerSystem } from '~/game/systems/timerSystem';
 import { LogType } from "~/types"
@@ -23,9 +23,7 @@ function keyup(ev: KeyboardEvent){
 }
 
 
-const scenes: Scene[] = [ mainGame ]
-const currentSceneIdx = shallowRef(0);
-
+const scenes: Scene[] = [ mainGameScene, gameOverScene ]
 
 const initialize = async () => {
 
@@ -52,19 +50,21 @@ const initialize = async () => {
   loadAudioFile('/audio/score.ogg', 'score');
   loadAudioFile('/audio/wallBounce.ogg', 'wallBounce');
 
-  const scene = scenes.at(currentSceneIdx.value);
+  const scene = scenes.at(gameStore.currentSceneId);
   if (scene) {
     scene.createEntities();
   } else {
-    logStore.error(`Scene ${currentSceneIdx.value} does not exist`)
+    logStore.error(`Scene ${gameStore.currentSceneId} does not exist`)
   }
 
   requestAnimationFrame(mainLoop);
 }
 
-watch(currentSceneIdx, () => {
-
-})
+const removeData = () => {
+  for (const componentStore of Object.values(gameStore.componentStore)) {
+    componentStore.clear();
+  }
+}
 
 const handleInput = (deltaTime: number, scene: Scene) => {
   scene.handleInput(deltaTime);
@@ -79,12 +79,26 @@ const update = (deltaTime: number) => {
       }
     }
   }
-  const scene = scenes.at(currentSceneIdx.value);
+  
+  for (const newSceneId of gameStore.sceneSwitchQueue) {
+    if (newSceneId !== gameStore.currentSceneId) {
+      gameStore.currentSceneId = newSceneId;
+      const newScene = scenes.at(newSceneId);
+      if (newScene) {
+        removeData();
+        newScene.createEntities();
+      } else {
+        logStore.error(`Scene ${newSceneId} does not exist`)
+      }
+    }
+  }
+
+  const scene = scenes.at(gameStore.currentSceneId);
   if (scene) {
     handleInput(deltaTime, scene);
     scene.update(deltaTime);
   } else {
-    logStore.error(`Scene ${currentSceneIdx.value} does not exist`)
+    logStore.error(`Scene ${gameStore.currentSceneId} does not exist`)
   }
 }
 
@@ -93,13 +107,14 @@ const render = () => {
   if (gameCanvas.value && gameStore.canvasContext) {
     gameStore.canvasContext.clearRect(0, 0, gameCanvas.value.width, gameCanvas.value.height);
   }
-  const scene = scenes.at(currentSceneIdx.value);
+  const scene = scenes.at(gameStore.currentSceneId);
   if (scene) {
     scene.render();
   } else {
-    logStore.error(`Scene ${currentSceneIdx.value} does not exist`)
+    logStore.error(`Scene ${gameStore.currentSceneId} does not exist`)
   }
 }
+
 
 const cleanup = () => {
   gameStore.collidedEvents.clear();

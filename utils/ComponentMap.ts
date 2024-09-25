@@ -37,8 +37,10 @@ export class ComponentMap<T>{
   entries(){
     return this.internalMap.entries();
   }
-
   keys(){
     return this.internalMap.keys();
+  }
+  clear(){
+    return this.internalMap.clear();
   }
 }

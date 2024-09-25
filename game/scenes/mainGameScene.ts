@@ -16,7 +16,7 @@ import { timerSystem } from '~/game/systems/timerSystem';
 import { LogType } from "~/types"
 import { StaticValues } from "../staticValues";
 
-export const mainGame: Scene = {
+export const mainGameScene: Scene = {
   sceneName: "Main Game",
   createEntities() {
     createBackground();
