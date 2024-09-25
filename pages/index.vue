@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import type { ComponentMap } from '#imports';
 import { createBackground, createBall, createFloor, createGameTimer, createGoal, createPlayerOne, createPlayerTwo, createRoof, createScore, createStaticBox } from '~/game/entities';
+import { mainGame } from '~/game/scenes/mainGame';
 import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem } from '~/game/systems';
 import { timerSystem } from '~/game/systems/timerSystem';
 import { LogType } from "~/types"
+import type { Scene } from '~/types';
 
-const DEBUG = true;
+// const DEBUG = true;
 
 let lastFrameTimeMs = 0;
-
 const gameStore = useGameStore();
 const logStore = useLogStore();
-
 
 const gameCanvas = ref<HTMLCanvasElement | undefined>()
 
@@ -21,6 +21,10 @@ function keydown(ev: KeyboardEvent){
 function keyup(ev: KeyboardEvent){
   gameStore.pressedKeys.delete(ev.key);
 }
+
+
+const scenes: Scene[] = [ mainGame ]
+const currentSceneIdx = shallowRef(0);
 
 
 const initialize = async () => {
@@ -48,27 +52,22 @@ const initialize = async () => {
   loadAudioFile('/audio/score.ogg', 'score');
   loadAudioFile('/audio/wallBounce.ogg', 'wallBounce');
 
-  createBackground();
-  createFloor();
-  createRoof();
-  // createBall();
-
-  const playerOneId = createPlayerOne();
-  const playerTwoId = createPlayerTwo();
-
-  
-  createScore(vec2(80, 24), playerOneId);
-  createScore(vec2(270, 24), playerTwoId);
-  createGoal(vec2(360, 0), playerOneId);
-  createGoal(vec2(-16, 0), playerTwoId);
-
-  createGameTimer(vec2(80, 96), () => (createBall(-1)));
+  const scene = scenes.at(currentSceneIdx.value);
+  if (scene) {
+    scene.createEntities();
+  } else {
+    logStore.error(`Scene ${currentSceneIdx.value} does not exist`)
+  }
 
   requestAnimationFrame(mainLoop);
 }
 
-const handleInput = (deltaTime: number) => {
-  inputSystem.update(deltaTime);
+watch(currentSceneIdx, () => {
+
+})
+
+const handleInput = (deltaTime: number, scene: Scene) => {
+  scene.handleInput(deltaTime);
 }
 
 const update = (deltaTime: number) => {
@@ -80,15 +79,13 @@ const update = (deltaTime: number) => {
       }
     }
   }
-  handleInput(deltaTime);
-
-  physicSystem.update(deltaTime);
-  collisionSystem.update(deltaTime);
-  solidSystem.update(deltaTime);
-  bouncingSystem.update(deltaTime);
-  goalSystem.update(deltaTime);
-  audioSystem.update(deltaTime);
-  timerSystem.update(deltaTime);
+  const scene = scenes.at(currentSceneIdx.value);
+  if (scene) {
+    handleInput(deltaTime, scene);
+    scene.update(deltaTime);
+  } else {
+    logStore.error(`Scene ${currentSceneIdx.value} does not exist`)
+  }
 }
 
 
@@ -96,11 +93,11 @@ const render = () => {
   if (gameCanvas.value && gameStore.canvasContext) {
     gameStore.canvasContext.clearRect(0, 0, gameCanvas.value.width, gameCanvas.value.height);
   }
-
-  renderSystem.draw();
-  textRenderSystem.draw();
-  if (DEBUG) {
-    collisionSystem.draw();
+  const scene = scenes.at(currentSceneIdx.value);
+  if (scene) {
+    scene.render();
+  } else {
+    logStore.error(`Scene ${currentSceneIdx.value} does not exist`)
   }
 }
 
