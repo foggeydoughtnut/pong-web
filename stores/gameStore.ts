@@ -47,7 +47,7 @@ export const useGameStore = defineStore('game', {
     deletionQueue: new Set(),
     sceneSwitchQueue: new Set(),
     currentId: 0,
-    currentSceneName: "main-game",
+    currentSceneName: "main-menu",
     scenes: new Map(),
     gameConfig: {
       resolution: { width: 360, height: 270 },

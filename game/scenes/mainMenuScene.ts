@@ -1,20 +1,18 @@
 import type { Scene } from "~/types";
 import {
   createBlankBackground,
-  createFloor,
-  createRoof,
   createText,
 } from "../entities";
 import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, audioSystem, textRenderSystem } from '~/game/systems';
 import { timerSystem } from '~/game/systems/timerSystem';
 import { StaticValues } from "../staticValues";
 
-export const gameOverScene: Scene = {
-  sceneName: "Game Over",
+export const mainMenuScene: Scene = {
+  sceneName: "Main Menu",
   createEntities() {
     const gameStore = useGameStore();
     createBlankBackground();
-    createText(vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/2), "Game Over", 32)
+    createText(vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/3), "Pong", 32)
   },
   handleInput(deltaTime: number) {
     inputSystem.update(deltaTime);

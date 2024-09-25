@@ -6,4 +6,4 @@ export interface Scene {
   sceneName: string;
 }
 
-export type ScenesAvailable = "main-game" | "game-over"
+export type ScenesAvailable = "main-game" | "game-over" | "main-menu"

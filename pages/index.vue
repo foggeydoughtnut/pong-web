@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { mainGameScene, gameOverScene } from '~/game/scenes';
+import { mainGameScene, gameOverScene, mainMenuScene } from '~/game/scenes';
 import { LogType } from "~/types"
 import type { Scene } from '~/types';
 
@@ -19,6 +19,7 @@ function keyup(ev: KeyboardEvent){
 }
 
 const initialize = async () => {
+  gameStore.addScene('main-menu', mainMenuScene);
   gameStore.addScene('main-game', mainGameScene);
   gameStore.addScene('game-over', gameOverScene);
 
