@@ -1,6 +1,5 @@
 import type { Scene } from "~/types";
 import {
-  createBackground,
   createFloor,
   createRoof,
   createPlayerOne,
@@ -8,7 +7,8 @@ import {
   createScore,
   createGoal,
   createGameTimer,
-  createBall
+  createBall,
+  createGameBackground
 } from "../entities";
 import type { ComponentMap } from '#imports';
 import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem } from '~/game/systems';
@@ -19,7 +19,7 @@ import { StaticValues } from "../staticValues";
 export const mainGameScene: Scene = {
   sceneName: "Main Game",
   createEntities() {
-    createBackground();
+    createGameBackground();
     createFloor();
     createRoof();
 

@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import type { ComponentMap } from '#imports';
-import { createBackground, createBall, createFloor, createGameTimer, createGoal, createPlayerOne, createPlayerTwo, createRoof, createScore, createStaticBox } from '~/game/entities';
 import { mainGameScene, gameOverScene } from '~/game/scenes';
-import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem } from '~/game/systems';
-import { timerSystem } from '~/game/systems/timerSystem';
 import { LogType } from "~/types"
 import type { Scene } from '~/types';
 
@@ -43,7 +39,8 @@ const initialize = async () => {
   await loadImage('/sprites/Ball.png', 'ball');
   await loadImage('/sprites/Floor.png', 'floor');
   await loadImage('/sprites/Roof.png', 'roof');
-  await loadImage('/sprites/Player.png', 'player')
+  await loadImage('/sprites/Player.png', 'player');
+  await loadImage('/sprites/blankBackground.png', 'blankBackground');
 
   loadAudioFile('/audio/playerBounce.ogg', 'playerBounce');
   loadAudioFile('/audio/score.ogg', 'score');
@@ -146,7 +143,7 @@ onMounted(async () => {
     <ClientOnly>
       <div class="grid grid-rows-[auto_1fr] gap-4 overflow-hidden p-8 h-full w-full">
         <div class="grid place-items-center justify-center items-center">
-          <canvas class="border" ref="gameCanvas" :width="360" :height="270" />
+          <canvas class="border" ref="gameCanvas" :width="gameStore.gameConfig.resolution.width" :height="gameStore.gameConfig.resolution.height" />
         </div>
         <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white border rounded-md">
           <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message" class="p-4">

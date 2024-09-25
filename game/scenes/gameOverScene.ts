@@ -1,25 +1,25 @@
 import type { Scene } from "~/types";
 import {
-  createBackground,
+  createBlankBackground,
   createFloor,
   createRoof,
+  createText,
 } from "../entities";
-import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem } from '~/game/systems';
+import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, audioSystem, textRenderSystem } from '~/game/systems';
 import { timerSystem } from '~/game/systems/timerSystem';
 import { StaticValues } from "../staticValues";
 
 export const gameOverScene: Scene = {
   sceneName: "Main Game",
   createEntities() {
-    createBackground();
-    createFloor();
-    createRoof();
+    const gameStore = useGameStore();
+    createBlankBackground();
+    createText(vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/2), "Game Over", 32)
   },
   handleInput(deltaTime: number) {
     inputSystem.update(deltaTime);
   },
   update(deltaTime: number) {
-
     physicSystem.update(deltaTime);
     collisionSystem.update(deltaTime);
     solidSystem.update(deltaTime);

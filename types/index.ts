@@ -3,3 +3,4 @@ export * from "./system";
 export * from "./log";
 export * from "./collisionEvent"
 export * from "./scene";
+export * from './game';

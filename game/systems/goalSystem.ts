@@ -26,7 +26,7 @@ export const goalSystem: System = {
 
                 const newPlayerScore = gameStore.componentStore.scores.get(goal.playerId)?.score
                 if (newPlayerScore) {
-                  if (newPlayerScore >= 11) {
+                  if (newPlayerScore >= gameStore.gameConfig.scoreToWin) {
                     gameStore.queueSceneSwitch("game-over");
                   }
                 }

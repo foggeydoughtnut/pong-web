@@ -1,4 +1,4 @@
-import type { ComponentStore, CollisionEvent, System, Scene, ScenesAvailable } from "~/types"
+import type { ComponentStore, CollisionEvent, System, Scene, ScenesAvailable, GameConfig } from "~/types"
 import { defineStore } from 'pinia'
 import { ImageMap } from "~/utils";
 
@@ -16,6 +16,7 @@ type GameStoreState = {
   currentSceneName: ScenesAvailable;
   sceneSwitchQueue: Set<ScenesAvailable>
   scenes: Map<string, Scene>
+  gameConfig: GameConfig;
 }
 
 export const useGameStore = defineStore('game', {
@@ -47,7 +48,11 @@ export const useGameStore = defineStore('game', {
     sceneSwitchQueue: new Set(),
     currentId: 0,
     currentSceneName: "main-game",
-    scenes: new Map()
+    scenes: new Map(),
+    gameConfig: {
+      resolution: { width: 360, height: 270 },
+      scoreToWin: 11
+    }
   }),
   getters: {},
   actions: {

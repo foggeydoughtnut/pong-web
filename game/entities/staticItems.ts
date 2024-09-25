@@ -83,12 +83,27 @@ export const createFloor = (): number => {
   return id;
 }
 
-export const createBackground = (): number => {
+export const createGameBackground = (): number => {
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   
   gameStore.componentStore.sprites.add(id, { 
     textureName: "background" 
+  });
+  gameStore.componentStore.transforms.add(id, { 
+    position: vec2(0, 0),
+    prevPosition: vec2(0, 0),
+    rotation: 0
+  });
+  return id;
+}
+
+export const createBlankBackground = (): number => {
+  const gameStore = useGameStore();
+  const id = gameStore.nextId();
+  
+  gameStore.componentStore.sprites.add(id, { 
+    textureName: "blankBackground" 
   });
   gameStore.componentStore.transforms.add(id, { 
     position: vec2(0, 0),
