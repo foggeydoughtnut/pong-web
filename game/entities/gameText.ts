@@ -11,10 +11,9 @@ export const createText = (position: Vector2, text: string, size: number): numbe
     size: size,
     color: 'white'
   })
-  const MHeight = gameStore.canvasContext?.measureText("M").width ?? 0
   gameStore.componentStore.transforms.add(id, {
-    position: { x: position.x - (gameStore.canvasContext?.measureText(text).width ?? 0)/2, y: position.y - MHeight/2 },
-    prevPosition: { x: position.x - (gameStore.canvasContext?.measureText(text).width ?? 0)/2, y: position.y - MHeight/2 },
+    position: position,
+    prevPosition: position,
     rotation: 0
   });
 
