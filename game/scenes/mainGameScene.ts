@@ -10,10 +10,8 @@ import {
   createBall,
   createGameBackground
 } from "../entities";
-import type { ComponentMap } from '#imports';
 import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem } from '~/game/systems';
 import { timerSystem } from '~/game/systems/timerSystem';
-import { LogType } from "~/types"
 import { StaticValues } from "../staticValues";
 
 export const mainGameScene: Scene = {

@@ -3,8 +3,6 @@ import { mainGameScene, gameOverScene, mainMenuScene } from '~/game/scenes';
 import { LogType } from "~/types"
 import type { Scene } from '~/types';
 
-// const DEBUG = true;
-
 let lastFrameTimeMs = 0;
 const gameStore = useGameStore();
 const logStore = useLogStore();
