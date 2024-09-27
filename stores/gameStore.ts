@@ -20,6 +20,7 @@ type GameStoreState = {
   scenes: Map<string, Scene>
   gameConfig: GameConfig;
   mousePosition: { x: number; y: number; };
+  paused: boolean;
 }
 
 export const useGameStore = defineStore('game', {
@@ -62,6 +63,7 @@ export const useGameStore = defineStore('game', {
     },
     mousePosition: { x: 0, y: 0 },
     clicked: false,
+    paused: false,
   }),
   getters: {},
   actions: {

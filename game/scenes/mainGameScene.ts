@@ -10,7 +10,7 @@ import {
   createBall,
   createGameBackground
 } from "../entities";
-import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem } from '~/game/systems';
+import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem, uiCollisionSystem } from '~/game/systems';
 import { timerSystem } from '~/game/systems/timerSystem';
 import { StaticValues } from "../staticValues";
 
@@ -28,27 +28,40 @@ export const mainGameScene: Scene = {
     createScore(vec2(270, 24), playerTwoId);
     createGoal(vec2(360, 0), playerOneId);
     createGoal(vec2(-16, 0), playerTwoId);
-
     createGameTimer(vec2(80, 96), () => (createBall(-1)));
   },
   handleInput(deltaTime: number) {
     inputSystem.update(deltaTime);
   },
   update(deltaTime: number) {
+    const gameStore = useGameStore();
 
-    physicSystem.update(deltaTime);
-    collisionSystem.update(deltaTime);
-    solidSystem.update(deltaTime);
-    bouncingSystem.update(deltaTime);
-    goalSystem.update(deltaTime);
+    if (!gameStore.paused) {
+      physicSystem.update(deltaTime);
+      collisionSystem.update(deltaTime);
+      solidSystem.update(deltaTime);
+      bouncingSystem.update(deltaTime);
+      goalSystem.update(deltaTime);
+      timerSystem.update(deltaTime);
+    }
+
+    if (gameStore.paused) {
+      uiCollisionSystem.update(deltaTime);
+    }
     audioSystem.update(deltaTime);
-    timerSystem.update(deltaTime);
+
+
   },
   render() {
+    const gameStore = useGameStore();
     renderSystem.draw();
     textRenderSystem.draw();
     if (StaticValues.DEBUG) {
       collisionSystem.draw();
+      
+      if (gameStore.paused) {
+        uiCollisionSystem.draw();
+      }
     }
   }
 }

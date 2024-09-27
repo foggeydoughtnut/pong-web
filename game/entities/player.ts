@@ -37,7 +37,8 @@ function createPlayer(keybinds: KeyboardControlled['keybinds'], transform: Trans
 export function createPlayerOne(): number{
   const playerId = createPlayer({
     UP: 'w',
-    DOWN: 's'
+    DOWN: 's',
+    PAUSE: 'Escape'
   }, {
     position: {
       x: 0,
@@ -56,7 +57,8 @@ export function createPlayerOne(): number{
 export function createPlayerTwo(): number{
   const playerId = createPlayer({
     UP: 'i',
-    DOWN: 'k'
+    DOWN: 'k',
+    PAUSE: 'Escape'
   }, {
     position: {
       x: 344,
