@@ -18,6 +18,8 @@ function keyup(ev: KeyboardEvent){
   gameStore.pressedKeys.delete(ev.key);
 }
 
+
+
 function getMousePos(canvas: HTMLCanvasElement | undefined, evt: MouseEvent) {
   if (canvas) {
     const rect = canvas.getBoundingClientRect();
@@ -39,6 +41,10 @@ const onMouseMove = (event: MouseEvent) => {
   gameStore.mousePosition.y = mousePos.y;
 }
 
+const onClickHandler = (event: MouseEvent) => {
+  gameStore.clicked = true;
+}
+
 const initialize = async () => {
   gameStore.addScene('main-menu', mainMenuScene);
   gameStore.addScene('main-game', mainGameScene);
@@ -54,6 +60,7 @@ const initialize = async () => {
 
   window.onkeydown = keydown;
   window.onkeyup = keyup;
+  
 
   await loadImage('/sprites/blackBox.png', 'blackBox');
   await loadImage('/sprites/testingSmallerSprite.png', 'testingSmallerSprite');
@@ -136,7 +143,9 @@ const render = () => {
 
 const cleanup = () => {
   gameStore.collidedEvents.clear();
+  gameStore.uiCollidedEvents.clear();
   gameStore.soundEffectEvents.clear();
+  gameStore.clicked = false;
   for (const removeKey of gameStore.deletionQueue) {
     for (const system of Object.values(gameStore.componentStore)){
       system.delete(removeKey);
@@ -165,7 +174,7 @@ onMounted(async () => {
     <ClientOnly>
       <div class="grid grid-rows-[auto_1fr] gap-4 overflow-hidden p-8 h-full w-full">
         <div class="grid place-items-center justify-center items-center">
-          <canvas class="border" ref="gameCanvas" :width="gameStore.gameConfig.resolution.width" :height="gameStore.gameConfig.resolution.height" @mousemove="onMouseMove"/>
+          <canvas class="border" ref="gameCanvas" :width="gameStore.gameConfig.resolution.width" :height="gameStore.gameConfig.resolution.height" @mousemove="onMouseMove" @click="onClickHandler"/>
         </div>
         <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white border rounded-md">
           <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message" class="p-4">

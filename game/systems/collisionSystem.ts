@@ -13,7 +13,7 @@ export const collisionSystem: System = {
           if (transformB) {
             if (idA !== idB) {
               if (intersects({ transform: transformA, collider: colliderA }, { transform: transformB, collider: colliderB })) {
-                gameStore.addUiCollisionEvent(idA, idB);
+                gameStore.addCollisionEvent(idA, idB);
               }              
             }
           } else {

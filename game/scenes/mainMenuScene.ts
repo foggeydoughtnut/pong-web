@@ -4,7 +4,7 @@ import {
   createCursor,
   createText,
 } from "../entities";
-import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, audioSystem, textRenderSystem, uiCollisionSystem } from '~/game/systems';
+import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, audioSystem, textRenderSystem, uiCollisionSystem, buttonSystem } from '~/game/systems';
 import { timerSystem } from '~/game/systems/timerSystem';
 import { StaticValues } from "../staticValues";
 import { createButton } from "../entities/button";
@@ -42,6 +42,7 @@ export const mainMenuScene: Scene = {
     audioSystem.update(deltaTime);
     timerSystem.update(deltaTime);
     uiCollisionSystem.update(deltaTime);
+    buttonSystem.update(deltaTime);
   },
   render() {
     renderSystem.draw();

@@ -15,7 +15,7 @@ export const uiCollisionSystem: System = {
           if (transformB) {
             if (idA !== idB) {
               if (intersects({ transform: transformA, collider: colliderA }, { transform: transformB, collider: colliderB })) {
-                gameStore.addCollisionEvent(idA, idB);
+                gameStore.addUiCollisionEvent(idA, idB);
               }              
             }
           } else {
@@ -33,7 +33,7 @@ export const uiCollisionSystem: System = {
       for (let [key, collider] of  gameStore.componentStore.uiBoxColliders.entries()) {
         const transform = gameStore.componentStore.transforms.get(key);
         if (transform) {
-          if (gameStore.collidedEvents.has(key)) {
+          if (gameStore.uiCollidedEvents.has(key)) {
             gameStore.canvasContext.strokeStyle = "red";
           } else {
             gameStore.canvasContext.strokeStyle = "green";

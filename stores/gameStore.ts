@@ -9,6 +9,7 @@ type GameStoreState = {
   loadedImages: ImageMap,
   loadedAudio: Map<string, HTMLAudioElement>
   pressedKeys: Set<KeyboardEvent['key']>,
+  clicked: boolean,
   collidedEvents: Map<number, Set<number>>
   uiCollidedEvents: Map<number, Set<number>>,
   soundEffectEvents: Map<number, string>,
@@ -60,6 +61,7 @@ export const useGameStore = defineStore('game', {
       scoreToWin: 11
     },
     mousePosition: { x: 0, y: 0 },
+    clicked: false,
   }),
   getters: {},
   actions: {
