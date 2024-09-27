@@ -58,7 +58,7 @@ export const useGameStore = defineStore('game', {
     scenes: new Map(),
     gameConfig: {
       resolution: { width: 360, height: 270 },
-      scoreToWin: 11
+      scoreToWin: 1
     },
     mousePosition: { x: 0, y: 0 },
     clicked: false,

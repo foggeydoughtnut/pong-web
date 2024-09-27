@@ -23,7 +23,7 @@ export const gameOverScene: Scene = {
     );
     
     createButton(
-      vec2(gameStore.gameConfig.resolution.width/2 - 8, gameStore.gameConfig.resolution.height/3 + 40),
+      vec2(gameStore.gameConfig.resolution.width/2 - 8, gameStore.gameConfig.resolution.height/3 + 44),
       "Restart",
       () => (gameStore.sceneSwitchQueue.add('main-game')),
       { 
@@ -33,7 +33,7 @@ export const gameOverScene: Scene = {
     );
 
     createButton(
-      vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/3 + 80),
+      vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/3 + 88),
       "Main Menu",
       () => (gameStore.sceneSwitchQueue.add('main-menu')),
       { 
@@ -41,7 +41,7 @@ export const gameOverScene: Scene = {
         offset: { x: -64, y: -14 }
       }
     );
-    createCursor(gameStore.mousePosition, { size: { width: 16, height: 24 }, offset: { x: -4, y: -4 }})
+    createCursor(gameStore.mousePosition, { size: { width: 16, height: 8 }, offset: { x: -4, y: -4 }})
   },
   handleInput(deltaTime: number) {
     inputSystem.update(deltaTime);

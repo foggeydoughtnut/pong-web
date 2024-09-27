@@ -1,3 +1,3 @@
 export const StaticValues = {
-  DEBUG: false
+  DEBUG: true
 } as const;

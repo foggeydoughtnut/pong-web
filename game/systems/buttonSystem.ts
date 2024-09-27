@@ -12,6 +12,7 @@ export const buttonSystem: System = {
         for (const collidedWithKey of collisions) {
           if (collidedWithKey !== key) {
             if (gameStore.clicked) {
+              console.log("Calling callback")
               button.callback();
             }
           }

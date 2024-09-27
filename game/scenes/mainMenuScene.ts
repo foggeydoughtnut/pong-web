@@ -30,7 +30,7 @@ export const mainMenuScene: Scene = {
       }
     );
 
-    createCursor(gameStore.mousePosition, { size: { width: 16, height: 24 }, offset: { x: -4, y: -4 }})
+    createCursor(gameStore.mousePosition, { size: { width: 16, height: 8 }, offset: { x: -4, y: -4 }})
   },
   handleInput(deltaTime: number) {
     inputSystem.update(deltaTime);
