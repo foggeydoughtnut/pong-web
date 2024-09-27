@@ -1,20 +1,47 @@
 import type { Scene } from "~/types";
 import {
   createBlankBackground,
+  createCursor,
   createFloor,
   createRoof,
   createText,
 } from "../entities";
-import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, audioSystem, textRenderSystem } from '~/game/systems';
+import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, audioSystem, textRenderSystem, uiCollisionSystem, buttonSystem } from '~/game/systems';
 import { timerSystem } from '~/game/systems/timerSystem';
 import { StaticValues } from "../staticValues";
+import { createButton } from "../entities/button";
 
 export const gameOverScene: Scene = {
   sceneName: "Game Over",
   createEntities() {
     const gameStore = useGameStore();
     createBlankBackground();
-    createText(vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/2), "Game Over", 32)
+    createText(
+      vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/3),
+      "Game Over",
+      32
+    );
+    
+    createButton(
+      vec2(gameStore.gameConfig.resolution.width/2 - 8, gameStore.gameConfig.resolution.height/3 + 40),
+      "Restart",
+      () => (gameStore.sceneSwitchQueue.add('main-game')),
+      { 
+        size: {width: 128, height: 32},
+        offset: { x: -56, y: -12 }
+      }
+    );
+
+    createButton(
+      vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/3 + 80),
+      "Main Menu",
+      () => (gameStore.sceneSwitchQueue.add('main-menu')),
+      { 
+        size: {width: 128, height: 32},
+        offset: { x: -64, y: -14 }
+      }
+    );
+    createCursor(gameStore.mousePosition, { size: { width: 16, height: 24 }, offset: { x: -4, y: -4 }})
   },
   handleInput(deltaTime: number) {
     inputSystem.update(deltaTime);
@@ -25,12 +52,15 @@ export const gameOverScene: Scene = {
     solidSystem.update(deltaTime);
     audioSystem.update(deltaTime);
     timerSystem.update(deltaTime);
+    uiCollisionSystem.update(deltaTime);
+    buttonSystem.update(deltaTime);
   },
   render() {
     renderSystem.draw();
     textRenderSystem.draw();
     if (StaticValues.DEBUG) {
       collisionSystem.draw();
+      uiCollisionSystem.draw();
     }
   }
 }
