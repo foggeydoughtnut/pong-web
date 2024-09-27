@@ -10,6 +10,7 @@ type GameStoreState = {
   loadedAudio: Map<string, HTMLAudioElement>
   pressedKeys: Set<KeyboardEvent['key']>,
   collidedEvents: Map<number, Set<number>>
+  uiCollidedEvents: Map<number, Set<number>>,
   soundEffectEvents: Map<number, string>,
   deletionQueue: Set<number>,
   currentId: number,
@@ -17,6 +18,7 @@ type GameStoreState = {
   sceneSwitchQueue: Set<ScenesAvailable>
   scenes: Map<string, Scene>
   gameConfig: GameConfig;
+  mousePosition: { x: number; y: number; };
 }
 
 export const useGameStore = defineStore('game', {
@@ -36,12 +38,16 @@ export const useGameStore = defineStore('game', {
       goals: new ComponentMap(),
       balls: new ComponentMap(),
       timers: new ComponentMap(),
+      buttons: new ComponentMap(),
+      uiBoxColliders: new ComponentMap(),
+      cursors: new ComponentMap(),
     },
     canvasContext: null,
     audioContext: new AudioContext(),
     loadedImages: new ImageMap(),
     pressedKeys: new Set(),
     collidedEvents: new Map(),
+    uiCollidedEvents: new Map(),
     loadedAudio: new Map(),
     soundEffectEvents: new Map(),
     deletionQueue: new Set(),
@@ -52,7 +58,8 @@ export const useGameStore = defineStore('game', {
     gameConfig: {
       resolution: { width: 360, height: 270 },
       scoreToWin: 11
-    }
+    },
+    mousePosition: { x: 0, y: 0 },
   }),
   getters: {},
   actions: {
@@ -82,6 +89,16 @@ export const useGameStore = defineStore('game', {
     },
     addScene(name: string, scene: Scene) {
       this.scenes.set(name, scene);
-    }
+    },
+    addUiCollisionEvent(entity1: number, entity2: number){
+      if (!this.uiCollidedEvents.has(entity1)){
+        this.uiCollidedEvents.set(entity1, new Set());
+      }
+      this.uiCollidedEvents.get(entity1)?.add(entity2);
+      if (!this.uiCollidedEvents.has(entity2)){
+        this.uiCollidedEvents.set(entity2, new Set());
+      }
+      this.uiCollidedEvents.get(entity2)?.add(entity1);
+    },
   },
 })

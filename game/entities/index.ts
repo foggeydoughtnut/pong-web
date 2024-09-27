@@ -5,3 +5,4 @@ export * from './score';
 export * from './goal';
 export * from './gameTimer';
 export * from "./gameText";
+export * from "./cursor";

@@ -18,6 +18,27 @@ function keyup(ev: KeyboardEvent){
   gameStore.pressedKeys.delete(ev.key);
 }
 
+function getMousePos(canvas: HTMLCanvasElement | undefined, evt: MouseEvent) {
+  if (canvas) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+        x: (evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width,
+        y: (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
+    };
+  } else {
+    return {
+      x: 0,
+      y: 0
+    }
+  }
+}
+
+const onMouseMove = (event: MouseEvent) => {
+  const mousePos = getMousePos(gameCanvas.value, event);
+  gameStore.mousePosition.x = mousePos.x;
+  gameStore.mousePosition.y = mousePos.y;
+}
+
 const initialize = async () => {
   gameStore.addScene('main-menu', mainMenuScene);
   gameStore.addScene('main-game', mainGameScene);
@@ -144,7 +165,7 @@ onMounted(async () => {
     <ClientOnly>
       <div class="grid grid-rows-[auto_1fr] gap-4 overflow-hidden p-8 h-full w-full">
         <div class="grid place-items-center justify-center items-center">
-          <canvas class="border" ref="gameCanvas" :width="gameStore.gameConfig.resolution.width" :height="gameStore.gameConfig.resolution.height" />
+          <canvas class="border" ref="gameCanvas" :width="gameStore.gameConfig.resolution.width" :height="gameStore.gameConfig.resolution.height" @mousemove="onMouseMove"/>
         </div>
         <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white border rounded-md">
           <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message" class="p-4">

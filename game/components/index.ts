@@ -14,3 +14,6 @@ export * from './GameText';
 export * from "./score";
 export * from './ball';
 export * from "./timer";
+export * from "./button";
+export * from "./ui";
+export * from './cursor';
