@@ -111,6 +111,7 @@ const update = (deltaTime: number) => {
         gameStore.sceneSwitchQueue.delete(newSceneName)
         removeData();
         newScene.createEntities();
+        document.documentElement.style.cursor = 'default';
       } else {
         logStore.error(`Scene ${newSceneName} does not exist`)
       }
