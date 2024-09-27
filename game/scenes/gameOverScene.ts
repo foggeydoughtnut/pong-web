@@ -25,7 +25,7 @@ export const gameOverScene: Scene = {
     createButton(
       vec2(gameStore.gameConfig.resolution.width/2 - 8, gameStore.gameConfig.resolution.height/3 + 44),
       "Restart",
-      () => (gameStore.sceneSwitchQueue.add('main-game')),
+      () => (gameStore.queueSceneSwitch('main-game')),
       { 
         size: {width: 128, height: 32},
         offset: { x: -56, y: -12 }
@@ -35,7 +35,7 @@ export const gameOverScene: Scene = {
     createButton(
       vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/3 + 88),
       "Main Menu",
-      () => (gameStore.sceneSwitchQueue.add('main-menu')),
+      () => (gameStore.queueSceneSwitch('main-menu')),
       { 
         size: {width: 128, height: 32},
         offset: { x: -64, y: -14 }

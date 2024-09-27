@@ -108,6 +108,7 @@ const update = (deltaTime: number) => {
       gameStore.currentSceneName = newSceneName;
       const newScene = gameStore.scenes.get(newSceneName);
       if (newScene) {
+        gameStore.sceneSwitchQueue.delete(newSceneName)
         removeData();
         newScene.createEntities();
       } else {

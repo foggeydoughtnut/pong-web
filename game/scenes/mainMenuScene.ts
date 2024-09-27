@@ -23,7 +23,7 @@ export const mainMenuScene: Scene = {
     createButton(
       vec2(gameStore.gameConfig.resolution.width/2 + 16, gameStore.gameConfig.resolution.height/3 + 40),
       "Play",
-      () => (gameStore.sceneSwitchQueue.add('main-game')),
+      () => (gameStore.queueSceneSwitch('main-game')),
       { 
         size: {width: 64, height: 32},
         offset: { x: -36, y: -12 }
