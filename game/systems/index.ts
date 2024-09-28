@@ -9,3 +9,4 @@ export * from './textRenderSystem';
 export * from './goalSystem';
 export * from './uiCollisionSystem';
 export * from './buttonSystem';
+export * from './pauseSystem';

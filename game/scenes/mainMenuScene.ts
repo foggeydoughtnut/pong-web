@@ -43,6 +43,8 @@ export const mainMenuScene: Scene = {
     timerSystem.update(deltaTime);
     uiCollisionSystem.update(deltaTime);
     buttonSystem.update(deltaTime);
+
+    
   },
   render() {
     renderSystem.draw();

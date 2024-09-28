@@ -10,7 +10,7 @@ import {
   createBall,
   createGameBackground
 } from "../entities";
-import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem, uiCollisionSystem } from '~/game/systems';
+import { renderSystem, physicSystem, collisionSystem, inputSystem, solidSystem, bouncingSystem, audioSystem, textRenderSystem, goalSystem, uiCollisionSystem, pauseSystem, buttonSystem } from '~/game/systems';
 import { timerSystem } from '~/game/systems/timerSystem';
 import { StaticValues } from "../staticValues";
 
@@ -47,9 +47,11 @@ export const mainGameScene: Scene = {
 
     if (gameStore.paused) {
       uiCollisionSystem.update(deltaTime);
+      buttonSystem.update(deltaTime);
     }
     audioSystem.update(deltaTime);
-
+    pauseSystem.update(deltaTime);
+    
 
   },
   render() {
