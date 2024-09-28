@@ -25,22 +25,19 @@ export const collisionSystem: System = {
       }
     }
   },
-  draw(){
-    const gameStore = useGameStore();
-    if (gameStore.canvasContext) {
-      for (let [key, collider] of  gameStore.componentStore.boxColliders.entries()) {
-        const transform = gameStore.componentStore.transforms.get(key);
-        if (transform) {
-          if (gameStore.collidedEvents.has(key)) {
-            gameStore.canvasContext.strokeStyle = "red";
-          } else {
-            gameStore.canvasContext.strokeStyle = "green";
-          }
-          gameStore.canvasContext.lineWidth = 1
-          gameStore.canvasContext.strokeRect(transform.position.x + collider.offset.x, transform.position.y + collider.offset.y, collider.size.width, collider.size.height);
+  draw(context: CanvasRenderingContext2D){
+    const gameStore = useGameStore(); 
+    for (let [key, collider] of  gameStore.componentStore.boxColliders.entries()) {
+      const transform = gameStore.componentStore.transforms.get(key);
+      if (transform) {
+        if (gameStore.collidedEvents.has(key)) {
+          context.strokeStyle = "red";
+        } else {
+          context.strokeStyle = "green";
         }
+        context.lineWidth = 1
+        context.strokeRect(transform.position.x + collider.offset.x, transform.position.y + collider.offset.y, collider.size.width, collider.size.height);
       }
     }
-
   }
 }

@@ -54,15 +54,15 @@ export const mainGameScene: Scene = {
     
 
   },
-  render() {
+  render(context: CanvasRenderingContext2D) {
     const gameStore = useGameStore();
-    renderSystem.draw();
-    textRenderSystem.draw();
+    
+    renderSystem.draw(context);
+    textRenderSystem.draw(context);
     if (StaticValues.DEBUG) {
-      collisionSystem.draw();
-      
+      collisionSystem.draw(context);
       if (gameStore.paused) {
-        uiCollisionSystem.draw();
+        uiCollisionSystem.draw(context);
       }
     }
   }

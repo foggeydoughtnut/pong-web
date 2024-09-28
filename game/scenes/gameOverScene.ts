@@ -55,12 +55,12 @@ export const gameOverScene: Scene = {
     uiCollisionSystem.update(deltaTime);
     buttonSystem.update(deltaTime);
   },
-  render() {
-    renderSystem.draw();
-    textRenderSystem.draw();
+  render(context: CanvasRenderingContext2D) {
+    renderSystem.draw(context);
+    textRenderSystem.draw(context);
     if (StaticValues.DEBUG) {
-      collisionSystem.draw();
-      uiCollisionSystem.draw();
+      collisionSystem.draw(context);
+      uiCollisionSystem.draw(context);
     }
   }
 }

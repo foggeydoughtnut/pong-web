@@ -134,7 +134,9 @@ const render = () => {
   }
   const scene = gameStore.scenes.get(gameStore.currentSceneName);
   if (scene) {
-    scene.render();
+    if (gameStore.canvasContext) {
+      scene.render(gameStore.canvasContext);
+    }
   } else {
     logStore.error(`Scene ${gameStore.currentSceneName} does not exist`)
   }

@@ -27,22 +27,19 @@ export const uiCollisionSystem: System = {
       }
     }
   },
-  draw(){
+  draw(context: CanvasRenderingContext2D){
     const gameStore = useGameStore();
-    if (gameStore.canvasContext) {
       for (let [key, collider] of  gameStore.componentStore.uiBoxColliders.entries()) {
         const transform = gameStore.componentStore.transforms.get(key);
         if (transform) {
           if (gameStore.uiCollidedEvents.has(key)) {
-            gameStore.canvasContext.strokeStyle = "red";
+            context.strokeStyle = "red";
           } else {
-            gameStore.canvasContext.strokeStyle = "green";
+            context.strokeStyle = "green";
           }
-          gameStore.canvasContext.lineWidth = 1
-          gameStore.canvasContext.strokeRect(transform.position.x + collider.offset.x, transform.position.y + collider.offset.y, collider.size.width, collider.size.height);
+          context.lineWidth = 1
+          context.strokeRect(transform.position.x + collider.offset.x, transform.position.y + collider.offset.y, collider.size.width, collider.size.height);
         }
       }
-    }
-
   }
 }
