@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { mainGameScene, gameOverScene, mainMenuScene } from '~/game/scenes';
+import { StaticValues } from '~/game/staticValues';
 import { LogType } from "~/types"
 import type { Scene } from '~/types';
 
@@ -203,7 +204,7 @@ onMounted(async () => {
           <canvas v-show="!gameStore.paused" class="border" ref="gameCanvas" :width="gameStore.gameConfig.resolution.width" :height="gameStore.gameConfig.resolution.height" @mousemove="onMouseMove" @click="onClickHandler"/>
           <canvas v-show="gameStore.paused" class="border" ref="pauseCanvas" :width="gameStore.gameConfig.resolution.width" :height="gameStore.gameConfig.resolution.height" @mousemove="onMouseMove" @click="onClickHandler"/>
         </div>
-        <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white border rounded-md">
+        <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white border rounded-md" v-if="StaticValues.DEBUG">
           <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message" class="p-4">
             <div
               v-if="log.logType == LogType.Error"
