@@ -1,6 +1,6 @@
 import type { Vector2 } from "../components";
 
-export const createText = (position: Vector2, text: string, size: number): number => {
+export const createText = (position: Vector2, text: string, size: number, partOfPauseUI = false): number => {
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   
@@ -16,6 +16,10 @@ export const createText = (position: Vector2, text: string, size: number): numbe
     prevPosition: position,
     rotation: 0
   });
+
+  if (partOfPauseUI) {
+    gameStore.componentStore.pauseElements.add(id, {});
+  }
 
   return id;
 }

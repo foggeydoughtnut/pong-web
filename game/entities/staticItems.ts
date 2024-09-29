@@ -95,10 +95,11 @@ export const createGameBackground = (): number => {
     prevPosition: vec2(0, 0),
     rotation: 0
   });
+
   return id;
 }
 
-export const createBlankBackground = (): number => {
+export const createBlankBackground = (partOfPauseUi = false): number => {
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   
@@ -110,5 +111,9 @@ export const createBlankBackground = (): number => {
     prevPosition: vec2(0, 0),
     rotation: 0
   });
+
+  if (partOfPauseUi) {
+    gameStore.componentStore.pauseElements.add(id, {})
+  }
   return id;
 }

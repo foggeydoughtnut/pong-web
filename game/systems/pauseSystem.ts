@@ -8,7 +8,7 @@ let quitButtonId = -1;
 let cursorId = -1;
 let blankBackgroundId = -1;
 
-const deleteEntities = () => {
+const deletePauseEntities = () => {
   const gameStore = useGameStore(useNuxtApp().$pinia);
 
   gameStore.deleteEntity(blankBackgroundId, pauseSystem);
@@ -31,31 +31,36 @@ export const pauseSystem: System = {
     const logger = useLogStore(useNuxtApp().$pinia);
 
     if (gameStore.paused && !previousPauseState) {
-      blankBackgroundId = createBlankBackground();
+      gameStore.activeContext = gameStore.pauseContext;
+      blankBackgroundId = createBlankBackground(true);
       textId = createText(
         vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/3),
         "Paused",
-        32
+        32,
+        true
       );
     
       quitButtonId = createButton(
         vec2(gameStore.gameConfig.resolution.width/2, gameStore.gameConfig.resolution.height/3 + 40),
         "Quit",
         () => {
-          deleteEntities();
-          gameStore.paused = false;
+          deletePauseEntities();
           gameStore.queueSceneSwitch('main-menu');
+          gameStore.activeContext = gameStore.mainGameContext;
+          gameStore.paused = false;
         },
         { 
-          size: {width: 64, height: 32},
+          size: { width: 64, height: 32 },
           offset: { x: -36, y: -12 }
-        }
+        },
+        true
       );
-      cursorId = createCursor(gameStore.mousePosition, { size: { width: 16, height: 8 }, offset: { x: -4, y: -4 }})
+      cursorId = createCursor(gameStore.mousePosition, { size: { width: 16, height: 8 }, offset: { x: -4, y: -4 }}, true)
     }
 
     if (!gameStore.paused && previousPauseState) {
-      deleteEntities();
+      deletePauseEntities();
+      gameStore.activeContext = gameStore.mainGameContext;
     }
     previousPauseState = gameStore.paused;
   },

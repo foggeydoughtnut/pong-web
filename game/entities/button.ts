@@ -1,6 +1,6 @@
 import type { UiCollider, Vector2 } from "../components";
 
-export const createButton = (position: Vector2, text: string, callback: () => void, collider: UiCollider): number => {
+export const createButton = (position: Vector2, text: string, callback: () => void, collider: UiCollider, partOfPauseUI = false): number => {
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   
@@ -22,6 +22,11 @@ export const createButton = (position: Vector2, text: string, callback: () => vo
   gameStore.componentStore.buttons.add(id, {
     callback: callback
   });
+
+  if (partOfPauseUI) {
+    gameStore.componentStore.pauseElements.add(id, {})
+  }
+
   
   return id;
 

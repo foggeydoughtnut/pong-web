@@ -4,7 +4,9 @@ import { ImageMap } from "~/utils";
 
 type GameStoreState = {
   componentStore: ComponentStore;
-  canvasContext: CanvasRenderingContext2D | null;
+  mainGameContext: CanvasRenderingContext2D | null;
+  pauseContext: CanvasRenderingContext2D | null;
+  activeContext: CanvasRenderingContext2D | null;  
   audioContext: AudioContext;
   loadedImages: ImageMap,
   loadedAudio: Map<string, HTMLAudioElement>
@@ -43,8 +45,11 @@ export const useGameStore = defineStore('game', {
       buttons: new ComponentMap(),
       uiBoxColliders: new ComponentMap(),
       cursors: new ComponentMap(),
+      pauseElements: new ComponentMap(),
     },
-    canvasContext: null,
+    mainGameContext: null,
+    pauseContext: null,
+    activeContext: null,
     audioContext: new AudioContext(),
     loadedImages: new ImageMap(),
     pressedKeys: new Set(),

@@ -8,6 +8,7 @@ const gameStore = useGameStore();
 const logStore = useLogStore();
 
 const gameCanvas = ref<HTMLCanvasElement | undefined>()
+const pauseCanvas = ref<HTMLCanvasElement | undefined>()
 
 function keydown(ev: KeyboardEvent){
   gameStore.pressedKeys.add(ev.key);
@@ -34,7 +35,12 @@ function getMousePos(canvas: HTMLCanvasElement | undefined, evt: MouseEvent) {
 }
 
 const onMouseMove = (event: MouseEvent) => {
-  const mousePos = getMousePos(gameCanvas.value, event);
+  let mousePos = {x: 0, y: 0};
+  if (gameStore.paused) {
+    mousePos = getMousePos(pauseCanvas.value, event);
+  } else {
+    mousePos = getMousePos(gameCanvas.value, event);
+  }
   gameStore.mousePosition.x = mousePos.x;
   gameStore.mousePosition.y = mousePos.y;
 }
@@ -52,7 +58,14 @@ const initialize = async () => {
   if (gameCanvas.value) {
     const ctx = gameCanvas.value.getContext('2d');
     if (ctx) {
-      gameStore.canvasContext = ctx;
+      gameStore.mainGameContext = ctx;
+    }
+  }
+
+  if (pauseCanvas.value) {
+    const ctx = pauseCanvas.value.getContext('2d');
+    if (ctx) {
+      gameStore.pauseContext = ctx;
     }
   }
 
@@ -94,11 +107,22 @@ const handleInput = (deltaTime: number, scene: Scene) => {
 }
 
 const update = (deltaTime: number) => {
-  if (!gameStore.canvasContext) {
+  if (!gameStore.mainGameContext) {
     if (gameCanvas.value) {
       const ctx = gameCanvas.value.getContext('2d');
       if (ctx) {
-        gameStore.canvasContext = ctx;
+        gameStore.mainGameContext = ctx;
+        gameStore.activeContext = gameStore.mainGameContext;
+
+      }
+    }
+  }
+
+  if (!gameStore.pauseContext) {
+    if (pauseCanvas.value) {
+      const ctx = pauseCanvas.value.getContext('2d');
+      if (ctx) {
+        gameStore.pauseContext = ctx;
       }
     }
   }
@@ -129,13 +153,13 @@ const update = (deltaTime: number) => {
 
 
 const render = () => {
-  if (gameCanvas.value && gameStore.canvasContext) {
-    gameStore.canvasContext.clearRect(0, 0, gameCanvas.value.width, gameCanvas.value.height);
+  if (gameCanvas.value && gameStore.activeContext) {
+    gameStore.activeContext.clearRect(0, 0, gameCanvas.value.width, gameCanvas.value.height);
   }
   const scene = gameStore.scenes.get(gameStore.currentSceneName);
   if (scene) {
-    if (gameStore.canvasContext) {
-      scene.render(gameStore.canvasContext);
+    if (gameStore.activeContext) {
+      scene.render(gameStore.activeContext);
     }
   } else {
     logStore.error(`Scene ${gameStore.currentSceneName} does not exist`)
@@ -176,7 +200,8 @@ onMounted(async () => {
     <ClientOnly>
       <div class="grid grid-rows-[auto_1fr] gap-4 overflow-hidden p-8 h-full w-full">
         <div class="grid place-items-center justify-center items-center">
-          <canvas class="border" ref="gameCanvas" :width="gameStore.gameConfig.resolution.width" :height="gameStore.gameConfig.resolution.height" @mousemove="onMouseMove" @click="onClickHandler"/>
+          <canvas v-show="!gameStore.paused" class="border" ref="gameCanvas" :width="gameStore.gameConfig.resolution.width" :height="gameStore.gameConfig.resolution.height" @mousemove="onMouseMove" @click="onClickHandler"/>
+          <canvas v-show="gameStore.paused" class="border" ref="pauseCanvas" :width="gameStore.gameConfig.resolution.width" :height="gameStore.gameConfig.resolution.height" @mousemove="onMouseMove" @click="onClickHandler"/>
         </div>
         <div class="m-4 w-full h-full flex flex-col overflow-auto bg-white border rounded-md">
           <div v-for="log in logStore.getLogs(LogType.Info)" :key="log.message" class="p-4">

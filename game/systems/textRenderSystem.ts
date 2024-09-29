@@ -15,7 +15,15 @@ export const textRenderSystem: System = {
         context.fillStyle = value.color;
         context.font = `${value.size}px ${value.fontFamily}`
         context.textRendering = "optimizeLegibility";
-        context.fillText(value.text(), transform.position.x - widthOfText/2, transform.position.y + heightOfText/2)
+
+        // If paused, only render the entities that have the pause element component attached to them
+        if (gameStore.paused) {
+          if (gameStore.componentStore.pauseElements.has(key)) {
+            context.fillText(value.text(), transform.position.x - widthOfText/2, transform.position.y + heightOfText/2)
+          }
+        } else {
+          context.fillText(value.text(), transform.position.x - widthOfText/2, transform.position.y + heightOfText/2)
+        }
         
       }
     }

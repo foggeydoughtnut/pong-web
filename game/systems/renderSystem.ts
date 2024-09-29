@@ -10,7 +10,14 @@ export const renderSystem: System = {
       if (transform) {
         const image = gameStore.loadedImages.get(value.textureName);
         if (image) {
-          context.drawImage(image, transform.position.x, transform.position.y);
+          // If paused, only render the entities that have the pause element component attached to them
+          if (gameStore.paused) {
+            if (gameStore.componentStore.pauseElements.has(key)) {
+              context.drawImage(image, transform.position.x, transform.position.y);
+            }
+          } else {
+            context.drawImage(image, transform.position.x, transform.position.y);
+          }
         } else {
           console.error(`Image for value: ${value.textureName} didn't exist`);
         }

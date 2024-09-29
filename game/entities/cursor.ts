@@ -1,6 +1,6 @@
 import type { UiCollider, Vector2 } from "../components";
 
-export const createCursor = (position: Vector2, collider: UiCollider): number => {
+export const createCursor = (position: Vector2, collider: UiCollider, partOfPauseUI = false): number => {
   const gameStore = useGameStore();
   const id = gameStore.nextId();
   
@@ -14,6 +14,10 @@ export const createCursor = (position: Vector2, collider: UiCollider): number =>
   gameStore.componentStore.uiBoxColliders.add(id, collider);
 
   gameStore.componentStore.cursors.add(id, {});
+
+  if (partOfPauseUI) {
+    gameStore.componentStore.pauseElements.add(id, {});
+  }
 
   return id;
 

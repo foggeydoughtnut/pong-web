@@ -38,7 +38,14 @@ export const uiCollisionSystem: System = {
             context.strokeStyle = "green";
           }
           context.lineWidth = 1
-          context.strokeRect(transform.position.x + collider.offset.x, transform.position.y + collider.offset.y, collider.size.width, collider.size.height);
+
+          if (gameStore.paused) {
+            if (gameStore.componentStore.pauseElements.has(key)) {
+              context.strokeRect(transform.position.x + collider.offset.x, transform.position.y + collider.offset.y, collider.size.width, collider.size.height);
+            }
+          } else {
+            context.strokeRect(transform.position.x + collider.offset.x, transform.position.y + collider.offset.y, collider.size.width, collider.size.height);
+          }
         }
       }
   }

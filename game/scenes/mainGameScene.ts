@@ -49,6 +49,7 @@ export const mainGameScene: Scene = {
       uiCollisionSystem.update(deltaTime);
       buttonSystem.update(deltaTime);
     }
+    
     audioSystem.update(deltaTime);
     pauseSystem.update(deltaTime);
     
