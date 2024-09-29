@@ -7,7 +7,6 @@ type GameStoreState = {
   mainGameContext: CanvasRenderingContext2D | null;
   pauseContext: CanvasRenderingContext2D | null;
   activeContext: CanvasRenderingContext2D | null;  
-  audioContext: AudioContext;
   loadedImages: ImageMap,
   loadedAudio: Map<string, HTMLAudioElement>
   pressedKeys: Set<KeyboardEvent['key']>,
@@ -50,7 +49,6 @@ export const useGameStore = defineStore('game', {
     mainGameContext: null,
     pauseContext: null,
     activeContext: null,
-    audioContext: new AudioContext(),
     loadedImages: new ImageMap(),
     pressedKeys: new Set(),
     collidedEvents: new Map(),
